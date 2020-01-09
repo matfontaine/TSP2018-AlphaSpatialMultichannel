@@ -1,0 +1,9531 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass elsarticle
+\begin_preamble
+% specify here the journal
+\journal{Signal Processing}
+\usepackage{subfigure}
+% use this if you need line numbers
+%\usepackage{lineno}
+\end_preamble
+\use_default_options false
+\begin_modules
+theorems-std
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle headings
+\tracking_changes true
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\author 2031672676 "Antoine Liutkus"
+\author 2094518694 "Mathieu Fontaine"
+\end_header
+
+\begin_body
+
+\begin_layout BeginFrontmatter
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Keep this empty!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Separation of Alpha-Stable Random Vectors
+\begin_inset Flex Titlenotemark
+status open
+
+\begin_layout Plain Layout
+t1
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+NE PAS DEPASSER 30 PAGES
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title footnote
+This work was partly supported by the research programmes KAMoulox (ANR-15-CE38-
+0003-01) and EDiSon3D (ANR-13-CORD-0008-01) funded by ANR, the French State
+ agency for research.
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+t1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Mathieu
+\begin_inset space ~
+\end_inset
+
+Fontaine
+\end_layout
+
+\begin_layout Email
+fontaine.mathieu2@gmail.com
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+At least one Email address is required.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+CHANGE CE MAIL, CETTE ADRESSE VA BIENTOT DISPARAITRE =( Oui c'est vrai :'(
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Address
+Université de Lorraine, CNRS, Inria, LORIA, F-54000 Nancy, France
+\end_layout
+
+\begin_layout Author
+Roland
+\begin_inset space ~
+\end_inset
+
+Badeau
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\size normal
+With 
+\series bold
+\size default
+
+\backslash
+fnref
+\series default
+\size normal
+ and you refer to the author footnotes.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Email
+roland.badeau@telecom-paris.fr
+\end_layout
+
+\begin_layout Address
+LTCI, Télécom Paris, Institut Polytechnique de Paris, Paris, France
+\end_layout
+
+\begin_layout Author
+Antoine
+\begin_inset space ~
+\end_inset
+
+Liutkus
+\end_layout
+
+\begin_layout Email
+antoine.liutkus@inria.fr
+\end_layout
+
+\begin_layout Address
+Inria, 
+\change_deleted 2031672676 1574057388
+Zenith team, 
+\change_unchanged
+LIRMM, University of Montpellier, France
+\end_layout
+
+\begin_layout Abstract
+Source separation aims at decomposing a vector into additive components.
+ This is often done by first estimating source parameters before feeding
+ them into a 
+\emph on
+filtering method
+\emph default
+, often based on ratios of covariances.
+ The whole pipeline is traditionally rooted in some probabilistic framework
+ providing both the likelihood for parameter estimation and the separation
+ method.
+ While Gaussians are ubiquitous for this purpose, many studies showed the
+ benefit of heavy-tailed models for estimation.
+ However, there is no counterpart filtering method to date exploiting such
+ formalism, so that related studies revert to covariance-based filtering
+ after estimation is finished.
+\end_layout
+
+\begin_layout Abstract
+Here, we introduce a new multivariate separation technique, that fully exploits
+ the flexibility of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable heavy-tailed distributions.
+ We show how a 
+\emph on
+spatial
+\emph default
+ representation can be exploited, which decomposes the observation as an
+ infinite sum of contributions originating from all directions.
+ Two methods for separation are derived.
+ The first one is non-linear and similar to a beamforming technique, while
+ the second one is linear, but minimizes a covariation criterion, which
+ is the counterpart of the covariance for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable vectors.
+ We evaluate the proposed techniques in a large number of challenging and
+ adverse situations on synthetic experiments, demonstrating their performance
+ for the extraction of signals from strong interferences.
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+200 mots maximum.
+ J'ai pris 250 mais je ne vois nulle part de contrainte stricte sur 200
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Keywords
+alpha-stable distribution 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+sep
+\end_layout
+
+\end_inset
+
+ separation theory 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+sep
+\end_layout
+
+\end_inset
+
+ additive models
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+sep
+\end_layout
+
+\end_inset
+
+ measure theory 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+sep
+\end_layout
+
+\end_inset
+
+ optimization
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Keywords must be separated by 
+\series bold
+
+\backslash
+sep
+\series default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout EndFrontmatter
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Keep this empty!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Use here the command 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+linenumbers 
+\end_layout
+
+\end_inset
+
+ and enable the package 
+\series bold
+lineno
+\series default
+ in the preamble if you need line numbers.
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand{
+\backslash
+gx}{g_{_{_
+\backslash
+mathcal{X}}}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Source separation is the task that consists in decomposing a signal into
+ additive components.
+ It is a very active research area in signal processing, notably because
+ of its numerous applications.
+ In audio for instance, it is the natural paradigm for denoising
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "godsill1995bayesian,godsill2002digital,fontaine2017explaining"
+literal "true"
+
+\end_inset
+
+) or for the demixing of music and speech recordings
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "rafii2018overview,vincent2018audio"
+literal "false"
+
+\end_inset
+
+).
+ It also finds applications in image processing and biological signal processing
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "damon2013non,cavalcant2019unmixing"
+literal "false"
+
+\end_inset
+
+), to name just a few
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "comon2010handbook"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Although there was some successful recent research on end-to-end methods
+ that directly produce source estimates when fed with a mixture
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "wang2018end,venkataramani2018end"
+literal "false"
+
+\end_inset
+
+), the most common separation processing pipeline consists in two steps
+ done sequentially.
+ First, the mixture is fed into some 
+\emph on
+estimation
+\emph default
+ system.
+ This results in a set of parameters that are used in a second step to design
+ a source-specific 
+\emph on
+filter,
+\emph default
+ which is applied to the mixture to produce estimates.
+ Formally, this filtering operation boils down to computations performed
+ on many mixture vectors in an independent manner.
+ For instance, the observed (multivariate) mixture samples may directly
+ be assumed independent as routinely done in biological signal processing.
+ In other cases like audio where temporal dependencies cannot be neglected,
+ it is common to apply some Time-Frequency (TF) analysis first and then
+ to assume independence in this transformed domain
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "benaroya2006audio,duong_TSALP2010,liutkus2011gaussian"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Separating an observed vector into additive components requires further
+ assumptions that are usually encoded into a probabilistic model permitting
+ inference.
+ More precisely, the required feature of such a model is to allow derivation
+ of the posterior distribution of one source given the observation of the
+ mixture and the knowledge of the model parameters.
+ An ubiquitous example of such a model is the Gaussian case, for which each
+ source is described through a covariance matrix, and separation is easily
+ performed in an analytical form.
+ It turns out that such a model subsumes the popular, yet degenerate case
+ where each source lies in a linear subspace, corresponding to its 
+\emph on
+direction of arrival
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "duong_TSALP2010"
+literal "false"
+
+\end_inset
+
+).
+ In any case, this whole linear estimation theory enjoys a rich history
+ whose roots can be traced back to the work of N.
+ Wiener in the 1940s
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "wiener1949extrapolation"
+literal "false"
+
+\end_inset
+
+).
+ From a broader perspective, we see that the core challenge faced by most
+ source separation methods is strongly related to additive probabilistic
+ models
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "duvenaud2011additive,febrero2013generalized,wood2015generalized,marra2011practical"
+literal "false"
+
+\end_inset
+
+).
+ The particular twist in this respect is that the models chosen for separation
+ should provide a way to recover the additive sources.
+\end_layout
+
+\begin_layout Standard
+Although covariance modeling for source separation has enjoyed a strong
+ popularity due to the simplicity and effectiveness of the separation procedure,
+ experience shows that it also suffers from some weaknesses.
+ First and foremost, Gaussian processes realizations may not explore more
+ than a few standard deviations, which means that Bayesian inference in
+ these models is intrinsically very sensitive to initialization, since the
+ probability mass is almost everywhere negligible.
+ A common workaround is to further constrain covariance models through shallow
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "ozerov2018introduction"
+literal "false"
+
+\end_inset
+
+) or deep
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "nugraha2018deep"
+literal "false"
+
+\end_inset
+
+) parametric constraints, but another complementary route is to simply opt
+ for heavy-tail models, for which much more robust inference is possible.
+ For instance, multivariate Laplace filters
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wang2008multivariate"
+literal "true"
+
+\end_inset
+
+) were successfully used for robust detection and result from Bayesian inference
+ in a state-space model where some variables are Laplace distributed.
+ In the same vein, a Student's
+\begin_inset space ~
+\end_inset
+
+t filter
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roth2013student"
+literal "true"
+
+\end_inset
+
+) was also proposed for a tracking scenario and exploits the heavy-tailed
+ nature of the Student's t distribution.
+ Likewise, this distribution was also already considered for robust estimation
+ of source separation parameters
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kitamura2016student,yoshii2016student"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Although the Laplace and Student's t distributions mentioned above are character
+ized as featuring heavy tails and are thus suitable for robust estimation
+ of sources parameters, their density is not stable under convolution, which
+ means that the distribution of sums of such random variables does not belong
+ to the same family.
+ As a consequence, they do not straightforwardly lead to convenient filters
+ that may be used for the separation stage.
+ In this context, a natural solution is to take the target signal as determinist
+ic, and only pick a heavy-tailed distribution for the noise term.
+ However, such an approach breaks down when uncertainty is to be considered
+ for the target, that becomes stochastic, or when more than two components
+ are mixed, which is for instance common in source separation.
+ Consequently, the strategy employed, e.g.
+ in
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kitamura2016student,yoshii2016student"
+literal "false"
+
+\end_inset
+
+) is to use robust models for estimation only, and then revert to a covariance
+ separation approach.
+ The only principled separation method we are aware of, that is based on
+ heavy tailed modeling, is the 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-Wiener filter presented in
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "liutkus2015generalized"
+literal "false"
+
+\end_inset
+
+) and further developed in
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "fontaine2017explaining"
+literal "false"
+
+\end_inset
+
+).
+ It is based on 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable distributions but is however restricted to the scalar case.
+\end_layout
+
+\begin_layout Standard
+In this paper, we build on the scalar 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-Wiener filter
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "liutkus2015generalized"
+literal "false"
+
+\end_inset
+
+) to extend it to the multivariate case and hence propose for the first
+ time a filter based on multivariate 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable distributions.
+ Doing so, we enable the use of such heavy-tail models not only for parameter
+ estimation, but also for separation.
+ The 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable distributions and processes
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "samoradnitsky1994stable"
+literal "false"
+
+\end_inset
+
+) are defined as the only class of distributions that are stable under convoluti
+on, and thus under addition of independent realizations
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+vérifier que c'est bien suffisant?
+\series bold
+ Oui, les alpha-stables sont de toute façon définis comme les seules classes
+ de variables 
+\begin_inset Quotes eld
+\end_inset
+
+stable en loi
+\begin_inset Quotes erd
+\end_inset
+
+ par combinaison linéaire.
+ Cette propriété reste bien entendu vraie pour les processus alpha-stable.
+\end_layout
+
+\end_inset
+
+.
+ They hence naturally appear in the generalized version of the central limit
+ theorem, which is applicable even when the random variables under consideration
+ do not have finite moments.
+ This is useful for modeling very volatile noise or signals, or to allow
+ iterative parameter estimation strategies even with bad initialization.
+ They were first put forward by Mandelbrot to model financial time series
+ (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mandelbrot1960pareto"
+literal "true"
+
+\end_inset
+
+) and have found widespread applications ever since: impulse noise modeling
+ in landline connections
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "stuck1974statistical"
+literal "true"
+
+\end_inset
+
+), modeling of background speckle patterns in SAR images
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "achim2006sar"
+literal "true"
+
+\end_inset
+
+), and audio noise modeling
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bassiou2014greek"
+literal "false"
+
+\end_inset
+
+), to name a few.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ici, tu parles de l'inférence.
+ Mais au final, on ne va pas vraiment mentionner l'estimation des paramètres,
+ donc je ne suis pas sûr que ça vaille le coup de garder ça.
+ Je commente en attendant.
+\end_layout
+
+\end_inset
+
+Despite their many interesting features, inference with
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable distributions suffers from the lack of an analytical expression
+ for their probability density function (pdf.) but in few special cases,
+ which prevents the use of the standard maximum likelihood or maximum
+\emph on
+a posteriori
+\emph default
+ methodologies for inference.
+ This hindered their widespread applications, although alternatives were
+ proposed, that include first lower order moment (FLOM) matching strategies
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nikias1995signal,zhong2013particle"
+literal "true"
+
+\end_inset
+
+, Markov Chain Monte Carlo (MCMC) sampling
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "csimcsekli2015alpha"
+literal "false"
+
+\end_inset
+
+, or the fitting of generalized moments, exploiting a close-form expression
+ for the characteristic function of
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable random variables.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The dependencies between the entries of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable random vectors are not encoded in covariance matrices as in the
+ Gaussian case.
+ Instead, they are described through a unique measure defined on the hypersphere
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "hardin1982spectral"
+literal "false"
+
+\end_inset
+
+), which can be understood as providing the strength of each 
+\emph on
+direction of arrival
+\emph default
+.
+ This makes the expressive power of the model much larger than in the Gaussian
+ case, that is limited to ellipsoidal profiles.
+ Throughout this paper, we call this object the 
+\emph on
+spatial density
+\emph default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+In the literature, the spatial density is rather called 
+\emph on
+spectral measure
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "samoradnitsky1994stable"
+literal "false"
+
+\end_inset
+
+).
+ We have deliberately chosen to avoid the term 
+\begin_inset Quotes erd
+\end_inset
+
+spectral
+\begin_inset Quotes erd
+\end_inset
+
+ here for two reasons.
+ First, we believe that it may bring some confusion for a signal processing
+ audience.
+ Second, we think that calling it spatial better highlights the fact that
+ it encodes dependencies between covariates.
+\begin_inset CommandInset label
+LatexCommand label
+name "fn:spatial_not_spectral"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ That object regularly attracts some attention.
+ It has for instance been considered for independent component analysis
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kidmose2001blind,wang2009ica"
+literal "true"
+
+\end_inset
+
+), for exchange rates estimation in financial data
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nolan2001estimation"
+literal "true"
+
+\end_inset
+
+), and more recently for audio source localization
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fontaine2017EUSIPCO"
+literal "true"
+
+\end_inset
+
+).
+ As a mathematical object defined on the hypersphere, some authors also
+ proposed alternative equivalent representations, notably through spherical
+ harmonics
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "pivato2003estimating"
+literal "false"
+
+\end_inset
+
+).
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Je supprime ce max-stable process, qui est pas clair: on introduit en 2009
+ un truc permettant de définir un autre truc datant de 84 ? Ouais pas faux.
+ J'ai juste essayé de l'introduire car l'un des reviewers en parlait dans
+ son rapport.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this paper, we show how to design digital filters specifically for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable random vectors.
+ For this purpose, we go further than both
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kidmose2001blind"
+literal "true"
+
+\end_inset
+
+), that focused on linear determined mixtures, and
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "liutkus2015generalized"
+literal "true"
+
+\end_inset
+
+), which is limited to the scalar case.
+ First, we present some theoretical results in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Multivariate-Alpha-stable-Probab"
+
+\end_inset
+
+, that develop a 
+\emph on
+spatial spectrum
+\emph default
+ representation for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable random vectors.
+ Based on this representation, we propose two different filtering methods.
+ In Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Multivariate-Filtering-Through-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, multivariate observations are decomposed into their spatial spectrum,
+ whose components are then filtered individually for reconstruction.
+ An alternative approach is presented in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Multivariate-Filtering-Through"
+
+\end_inset
+
+, where the sources are estimated directly as a combination of linear filters,
+ but with a design involving the spatial density.
+ Both methods are evaluated in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Evaluation"
+
+\end_inset
+
+ and compared to their Gaussian counterpart.
+\end_layout
+
+\begin_layout Subsection*
+Notation
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Notations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Throughout the paper, scalars are denoted with a normal, light font, e.g.
+ 
+\begin_inset Formula $\alpha\in\left(0,2\right)$
+\end_inset
+
+ or
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $K\in\mathbb{N}$
+\end_inset
+
+.
+ Vectors are indicated with bold lowercase letters, e.g.
+ 
+\begin_inset Formula $\boldsymbol{x}\in\mathbb{C}^{K}$
+\end_inset
+
+ and matrices with bold uppercase letters, e.g.
+ 
+\begin_inset Formula $\boldsymbol{P}\in\mathbb{C}^{K\times K}$
+\end_inset
+
+.
+ We furthermore use the following notation:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathbb{K}:$
+\end_inset
+
+ denotes either 
+\begin_inset Formula $\mathbb{C}$
+\end_inset
+
+ or
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathbb{R}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathbb{K}^{K}:$
+\end_inset
+
+ set of 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+-valued vectors of dimension
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $K$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{S}^{K}=\left\{ \left(\theta_{1}\dots\theta_{K}\right)\in\mathbb{K}^{K},\sum_{k=1}^{K}|\theta_{k}|^{2}=1\right\} $
+\end_inset
+
+: 
+\begin_inset Formula $K-1$
+\end_inset
+
+ dimensional hypersphere.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{S}_{\mathbb{R}}^{K}=\left\{ \left(\theta_{1},\dots,\theta_{K}\right)\in\mathbb{R}^{K},\;\sum_{k=1}^{K}\theta_{k}^{2}=1\right\} $
+\end_inset
+
+: real hypersphere in 
+\begin_inset Formula $\mathbb{R}^{K}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{S}_{\mathbb{C}}^{K}:$
+\end_inset
+
+ complex hypersphere of dimension
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $K$
+\end_inset
+
+, isomorphic to
+\begin_inset Formula $\:\mathcal{S}_{\mathbb{R}}^{2K}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+: either
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{S}_{\mathbb{C}}^{K}$
+\end_inset
+
+ or
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{S}_{\mathbb{R}}^{K}$
+\end_inset
+
+, according to whether we model complex or real data.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{B}\left(\mathcal{S}^{K}\right)$
+\end_inset
+
+: set of Borelian sets on 
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\boldsymbol{\theta}$
+\end_inset
+
+: vector from the hypersphere 
+\begin_inset Formula $\boldsymbol{\theta}\in\mathcal{S}^{K}$
+\end_inset
+
+, also called a 
+\emph on
+direction, 
+\emph default
+with entries
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\theta_{k}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\Theta$
+\end_inset
+
+: A partition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left\{ \Theta_{1},\dots,\Theta_{P}\right\} $
+\end_inset
+
+ of 
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+, for which:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+All 
+\emph on
+cells
+\emph default
+ 
+\begin_inset Formula $\Theta_{p}$
+\end_inset
+
+ have the same area
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Delta_{\Theta}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\boldsymbol{\theta}_{p}\in\Theta_{p}$
+\end_inset
+
+ denotes an element of cell
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Theta_{p}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Formula $\Re$
+\end_inset
+
+: real part of a complex number.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $.^{\star}$
+\end_inset
+
+: Hermitian transposition (resp.
+ conjugation) of a complex vector (resp.
+ complex number).
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left\langle .,.\right\rangle $
+\end_inset
+
+: inner product on
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathbb{K}^{K}$
+\end_inset
+
+: 
+\begin_inset Formula $\langle\boldsymbol{w},\boldsymbol{x}\rangle=\boldsymbol{w}^{\star}\boldsymbol{x}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $y_{jk}$
+\end_inset
+
+: 
+\begin_inset Formula $k^{th}$
+\end_inset
+
+ component of a vector
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\boldsymbol{e}_{k}$
+\end_inset
+
+: 
+\begin_inset Formula $k^{th}$
+\end_inset
+
+ vector from the canonical basis.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $.^{\left\langle .\right\rangle }$
+\end_inset
+
+: signed power function
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "samoradnitsky1994stable,nikias1995signal"
+literal "true"
+
+\end_inset
+
+): 
+\begin_inset Formula $\forall z\in\mathbb{K},\:z^{\left\langle \alpha\right\rangle }=z\left|z\right|^{\alpha-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\triangleq$
+\end_inset
+
+: 
+\begin_inset Quotes eld
+\end_inset
+
+equal by definition to
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+: assignment of a value to a variable in an algorithm.
+\end_layout
+
+\begin_layout Section
+The multivariate 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable probabilistic model
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Multivariate-Alpha-stable-Probab"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Isotropic symmetric 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable random variables
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename distribution_alpha-stable.pdf
+	width 80col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $S\alpha S_{c}^{1}$
+\end_inset
+
+ density probability functions in the real case with
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\sigma=1$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:alpha-stable distribution"
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+1.
+ Est-ce bien naturel de noter une pdf par 
+\begin_inset Formula $\mathbb{P}$
+\end_inset
+
+ ? 2.
+ remplacer 
+\begin_inset Formula $t$
+\end_inset
+
+ par 
+\begin_inset Formula $x$
+\end_inset
+
+.
+ 
+\series bold
+OK ça marche ! Oui c'est vrai qu'on utilise
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $p\left(x\right)$
+\end_inset
+
+ souvent pour parler de la densité.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+An isotropic 
+\color black
+(circular)
+\color inherit
+ symmetric 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable scalar random variable 
+\begin_inset Formula $x\sim S\alpha S_{c}^{1}\left(\sigma_{x}\right)$
+\end_inset
+
+ can be defined by its characteristic function (chf.)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\varphi_{x}:u\in\mathbb{K}\mapsto\mathbb{E}\left(\exp\left(i\Re\left(u^{\star}x\right)\right)\right)$
+\end_inset
+
+ as follows:
+\begin_inset Formula 
+\[
+\forall u\in\mathbb{K},\:\varphi_{x}\left(u\right)=\exp\left(-\left|u\right|^{\alpha}\sigma_{x}^{\alpha}\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\sigma_{x}$
+\end_inset
+
+ is called a 
+\emph on
+scale factor
+\emph default
+.
+ The real number 
+\begin_inset Formula $\alpha\in\left(0,2\right]$
+\end_inset
+
+ is called the
+\emph on
+ characteristic exponent
+\emph default
+ and defines the heaviness of the tails in a stable distribution: the smaller
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha$
+\end_inset
+
+, the heavier the tails.
+ Examples of probability density functions (pdf.) for such scalar random
+ variables are represented in the real case in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:alpha-stable distribution"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ It is remarkable that such a pdf.
+ is not available in closed-form in general, but only in some particular
+ cases, like the Cauchy
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left(\alpha=1\right)$
+\end_inset
+
+ and Gaussian 
+\begin_inset Formula $\left(\alpha=2\right)$
+\end_inset
+
+ distributions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Avant d'introduire le cas vectoriel, il faudrait d'abord introduire le cas
+ scalaire, plus simple, et que tu mentionnes plus tard dans l'article, sans
+ l'avoir défini et sans avoir défini la notion de 
+\begin_inset Quotes eld
+\end_inset
+
+scale factor
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable random vectors
+\end_layout
+
+\begin_layout Standard
+In this paper, we limit our attention to symmetric 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+stable random vectors, i.e.
+ 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable random vectors 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ and 
+\begin_inset Formula $-\boldsymbol{x}$
+\end_inset
+
+ have the same distribution, defined as in
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "samoradnitsky1994stable"
+literal "true"
+
+\end_inset
+
+):
+\end_layout
+
+\begin_layout Definition
+
+\emph on
+\begin_inset CommandInset label
+LatexCommand label
+name "def:spatial_density"
+
+\end_inset
+
+Let
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ be a random vector in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathbb{K}^{K}$
+\end_inset
+
+ associated to its characteristic function
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\varphi_{\boldsymbol{x}}:\boldsymbol{u}\in\mathbb{K}^{K}\mapsto\mathbb{E}\left(\exp\left(i\Re\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)\right)$
+\end_inset
+
+.
+ A symmetric isotropic 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable distribution with 
+\begin_inset Formula $\alpha\in\left(0,2\right)$
+\end_inset
+
+ is fully described by the unique representation:
+\end_layout
+
+\begin_layout Definition
+
+\emph on
+\begin_inset Formula 
+\begin{equation}
+\forall\boldsymbol{u}\in\mathbb{K}^{K},\:\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)=\exp\left(-\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left|\left\langle \boldsymbol{u},\boldsymbol{\theta}\right\rangle \right|^{\alpha}\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)\right),\label{eq:spectral_measure}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}$
+\end_inset
+
+ is a symmetric measure on the sphere
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+ called the 
+\emph default
+spatial density
+\emph on
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+See Footnote
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fn:spatial_not_spectral"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\emph on
+.
+\end_layout
+
+\end_inset
+
+.
+ Henceforth, we note 
+\begin_inset Formula $\boldsymbol{x}\sim S\alpha S_{c}^{K}\left(\Gamma_{\boldsymbol{x}}\right)$
+\end_inset
+
+ whenever
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ follows a symmetric 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable distribution with 
+\emph default
+spatial density
+\emph on
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}$
+\end_inset
+
+.
+\emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}$
+\end_inset
+
+ is a symmetric measure on 
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+ in the sense that for any continuous function 
+\begin_inset Formula $f$
+\end_inset
+
+ defined on 
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+ and for any 
+\begin_inset Formula $z\in\mathbb{K}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\left|z\right|=1$
+\end_inset
+
+, we have 
+\begin_inset Formula $\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}f\left(\boldsymbol{\theta}\right)\Gamma_{\boldsymbol{x}}\left(zd\boldsymbol{\theta}\right)=\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}f\left(\boldsymbol{\theta}\right)\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+est-ce que ça a du sens de parler de 
+\begin_inset Formula $d\Gamma$
+\end_inset
+
+? on pourrait pas mettre 
+\begin_inset Formula $\Gamma\left(zd\theta\right)$
+\end_inset
+
+ plutot ? 
+\series bold
+Oui en effet.
+ Je me suis renseigné sur la question d'ailleurs: on m'a expliqué qu'il
+ s'agissait juste de conventions (
+\begin_inset Formula $d\mu$
+\end_inset
+
+ est pour parler de consistence avec la mesure de Lebesgue et 
+\begin_inset Formula $\mu$
+\end_inset
+
+ plus pour parler d'une mesure en règle générale donc gardons la même notation
+ en effet).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Remark
+A symmetric 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+stable vector 
+\begin_inset Formula $\boldsymbol{x}\sim S\alpha S_{c}^{K}\left(\Gamma_{\boldsymbol{x}}\right)$
+\end_inset
+
+ belongs to a larger class: the 
+\emph on
+elliptically multivariate contoured
+\emph default
+ (EMC) distribution
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "cambanis1981theory"
+literal "false"
+
+\end_inset
+
+).
+ In many cases, the sum of EMC vectors 
+\begin_inset Formula $\boldsymbol{x},\boldsymbol{y}$
+\end_inset
+
+, respectively associated to the so-called scatter matrices 
+\begin_inset Formula $\boldsymbol{R}_{\boldsymbol{x}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{R}_{\boldsymbol{y}}$
+\end_inset
+
+, is still an EMC vector.
+ However, the parameter 
+\begin_inset Formula $\boldsymbol{R}_{\boldsymbol{x}+\boldsymbol{y}}$
+\end_inset
+
+ called 
+\emph on
+scatter matrix 
+\emph default
+of the mix is usually not equal to 
+\begin_inset Formula $\boldsymbol{R}_{\boldsymbol{x}}+\boldsymbol{R}_{\boldsymbol{y}}$
+\end_inset
+
+.
+ In the 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+stable case, Definition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "def:spatial_density"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ensures that the 
+\emph on
+spatial density
+\emph default
+ of the mix 
+\begin_inset Formula $\Gamma_{\boldsymbol{x}+\boldsymbol{y}}$
+\end_inset
+
+ is equal to 
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}+\Gamma_{\boldsymbol{y}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We highlight the fact that the Gaussian 
+\begin_inset Formula $\left(\alpha=2\right)$
+\end_inset
+
+ case is omitted in Definition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "def:spatial_density"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, because the representation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:spectral_measure"
+
+\end_inset
+
+ is not unique in that case.
+\end_layout
+
+\begin_layout Subsection
+Spatial spectrum and spatial representation
+\end_layout
+
+\begin_layout Standard
+In this section, we show how the spatial density
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}$
+\end_inset
+
+, featured in Definition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:spectral_measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, of a symmetric 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ -stable distribution can be understood through a so-called
+\emph on
+ spatial representation
+\emph default
+, which is central to the filtering methods we propose later in Sections
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Multivariate-Filtering-Through-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Multivariate-Filtering-Through"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Let
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ be an independently scattered 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable random measure on
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+, with control measure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "samoradnitsky1994stable"
+literal "false"
+
+\end_inset
+
+).
+ This means that:
+\end_layout
+
+\begin_layout Enumerate
+for any Borelian set 
+\begin_inset Formula $A\subset\mathcal{B}\left(\mathcal{S}^{K}\right)$
+\end_inset
+
+, the scalar random variable 
+\begin_inset Formula $\mathcal{X}\left(A\right)\in\mathbb{K}$
+\end_inset
+
+ is distributed as
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{X}\left(A\right)\sim S\alpha S_{c}\left(\Gamma_{\boldsymbol{x}}\left(A\right)\right)$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathcal{X}\left(A\right)$
+\end_inset
+
+ is independent from 
+\begin_inset Formula $\mathcal{X}\left(B\right)$
+\end_inset
+
+ whenever
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $A\cap B=\emptyset$
+\end_inset
+
+ for any two Borelian subsets
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $B\subset\mathcal{B}\left(\mathcal{S}^{K}\right)$
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+vérifier tout ça, je suis pas persuadé d'être bien propre
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We call
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ the
+\emph on
+ spatial spectrum
+\emph default
+ of the distribution 
+\begin_inset Formula $S\alpha S_{c}^{K}\left(\Gamma_{\boldsymbol{x}}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Remark
+In (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "ma1995parameter"
+literal "false"
+
+\end_inset
+
+), the 
+\emph on
+
+\begin_inset Formula $\alpha-$
+\end_inset
+
+spectrum
+\emph default
+ terminology is used in a different way as the 
+\emph on
+spatial spectrum.
+ 
+\emph default
+It describes the so-called covariation (see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Covariation-between-stable"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for further details) between the input single-channel signal and the output
+ single-channel signal.We have the following first result:
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:spatial_representation"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\boldsymbol{x}\sim S\alpha S_{c}^{K}\left(\Gamma_{\boldsymbol{x}}\right)$
+\end_inset
+
+, with spatial density
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}$
+\end_inset
+
+.
+ Then
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ admits the following
+\series bold
+ 
+\series default
+\emph on
+spatial representation
+\emph default
+:
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{x}\overset{d}{=}\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\boldsymbol{\theta}\mathcal{X}\left(d\boldsymbol{\theta}\right),\label{eq:spatial_representation}
+\end{equation}
+
+\end_inset
+
+where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\overset{d}{=}$
+\end_inset
+
+ means 
+\begin_inset Quotes eld
+\end_inset
+
+equal in distribution
+\begin_inset Quotes erd
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ is the 
+\emph on
+spatial spectrum
+\emph default
+ with control measure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The proof of this result is given in Appendix
+\begin_inset space ~
+\end_inset
+
+1.
+ The representation theorem means that an 
+\begin_inset Formula $S\alpha S_{c}^{K}$
+\end_inset
+
+ random vector is distributed as the sum of infinitely many contributions,
+ coming from all directions
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\theta}\in\mathcal{S}^{K}$
+\end_inset
+
+ on the sphere.
+ 
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ may thus be interpreted as the 
+\emph on
+scale factor
+\emph default
+ of the contributions pointing in direction
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\theta}$
+\end_inset
+
+.
+ Very interestingly, the spatial representation in Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:spatial_representation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ provides a straightforward way to generate samples from 
+\begin_inset Formula $S\alpha S_{c}^{K}\left(\Gamma_{\boldsymbol{x}}\right)$
+\end_inset
+
+ random vectors: first, generate the spatial spectrum 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+, and then use
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:spatial_representation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to construct the 
+\begin_inset Formula $S\alpha S_{c}^{K}$
+\end_inset
+
+ random vector 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+.
+ The method is summarized in Algorithm
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:alg-synthesis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The integration over the real or complex sphere, appearing in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:spatial_representation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, is replaced by finite sums.
+ This is done by simply constructing a regular partition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Theta$
+\end_inset
+
+ of the sphere
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+, and substituting the integration by the corresponding sum carried over
+ the
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Theta_{p}$
+\end_inset
+
+'s.
+ Let
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $f$
+\end_inset
+
+ be a function defined on the hypersphere and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $M$
+\end_inset
+
+ be a measure on the sphere.
+ For
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $P$
+\end_inset
+
+ large enough, the approximation goes as:
+\begin_inset Formula 
+\begin{equation}
+\int_{\mathcal{S}^{K}}\boldsymbol{\theta}f\left(\boldsymbol{\theta}\right)M\left(d\boldsymbol{\theta}\right)\approx\sum_{p}\boldsymbol{\theta}_{p}f\left(\boldsymbol{\theta}_{p}\right)M\left(\Theta_{p}\right),\label{eq:riemann_approx-1}
+\end{equation}
+
+\end_inset
+
+where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $M\left(\Theta_{p}\right)$
+\end_inset
+
+ may further be approximated as
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $m\left(\boldsymbol{\theta}_{p}\right)\Delta_{\Theta}$
+\end_inset
+
+ (where 
+\begin_inset Formula $\Delta_{\Theta}$
+\end_inset
+
+ is the Lebesgue measure of 
+\begin_inset Formula $\Theta_{p}$
+\end_inset
+
+), whenever
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $M$
+\end_inset
+
+ is dominated by the Lebesgue measure and thus equal to
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $M\left(d\boldsymbol{\theta}\right)=m\left(\boldsymbol{\theta}\right)d\boldsymbol{\theta}$
+\end_inset
+
+ for some measurable function
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $m$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Enumerate
+
+\series bold
+Input
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Number
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $N$
+\end_inset
+
+ of desired realizations
+\end_layout
+
+\begin_layout Itemize
+Partition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Theta=\left\{ \Theta_{1},\dots,\Theta_{P}\right\} $
+\end_inset
+
+ of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+ as described in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Notations"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Characteristic exponent
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha\in\left(0,2\right)$
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+pourquoi se limiter à 
+\begin_inset Formula $\left(1,2\right)$
+\end_inset
+
+ ? 
+\series bold
+Tu as raison.
+ Pour cet algo on peut aller de 0 à 2.
+ C'est juste que les méthodes de filtrages ne sont bien définies qu'entre
+ 1 et 2.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Spatial density
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Spatial spectrum generation
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $\forall n,p,\,\mathcal{X}_{np}\sim S\alpha S_{c}\left(\Gamma_{\boldsymbol{x}}\left(\Theta_{p}\right)\right)$
+\end_inset
+
+ 
+\series default
+where 
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}\left(\Theta_{p}\right)$
+\end_inset
+
+ is the restriction of 
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}$
+\end_inset
+
+ to the set 
+\begin_inset Formula $\Theta_{p}$
+\end_inset
+
+ up to renormalization.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{0.09cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Synthesis
+\series default
+ 
+\begin_inset Formula $\forall n,x_{n}\leftarrow\sum_{p}\boldsymbol{\theta}_{p}\mathcal{X}_{np}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Sampling of 
+\begin_inset Formula $S\alpha S_{c}^{K}\left(\Gamma_{\boldsymbol{x}}\right)$
+\end_inset
+
+ random vectors through their spatial representation
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:alg-synthesis"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given our model for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable vectors, we now discuss the distribution of mixtures of such random
+ vectors.
+\end_layout
+
+\begin_layout Subsection
+Mixtures of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable random vectors
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Mixtures-of-alpha-stable"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename double_VonMises.pdf
+	width 50col%
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Graphics
+	filename double_VonMises(melange).pdf
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Example-of-spatial"
+
+\end_inset
+
+Spatial densities in the real case with 
+\begin_inset Formula $K=2$
+\end_inset
+
+.
+ 
+\series bold
+On the left
+\series default
+, density plots of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{1}\sim S\alpha S_{c}^{K}\left(\Gamma_{1}\right)$
+\end_inset
+
+ (in green) and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{2}\sim S\alpha S_{c}^{K}\left(\Gamma_{2}\right)$
+\end_inset
+
+ (in red), where the maxima of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{1}$
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{2}$
+\end_inset
+
+ are reached for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left\{ \frac{5\pi}{8},\frac{5\pi}{8}+\frac{\pi}{3}\right\} $
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left\{ \frac{5\pi}{8}+\frac{\pi}{6},\frac{5\pi}{8}+\frac{\pi}{2}\right\} $
+\end_inset
+
+.
+ These plots show the influence of the spatial density on the dependence
+ patterns between covariates.
+ 
+\series bold
+On the right
+\series default
+, a density plot for the mixture
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}=\boldsymbol{y}_{1}+\boldsymbol{y}_{2}$
+\end_inset
+
+ shows the additive property of spatial densities.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the filtering and signal processing literature, it is common to assume
+ that the observed vector
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}\in\mathbb{K}^{K}$
+\end_inset
+
+ is the sum of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $J$
+\end_inset
+
+ components
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}\in\mathbb{K}^{K}$
+\end_inset
+
+ that we want to recover.
+ Here, we take each component
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}\sim S\alpha S_{c}^{K}\left(\Gamma_{j}\right)$
+\end_inset
+
+ as described above, with its own spatial density
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\begin{cases}
+\boldsymbol{x}=\sum_{j=1}^{J}\boldsymbol{y}_{j}\\
+\forall j,\,\boldsymbol{y}_{j}\sim S\alpha S_{c}^{K}\left(\Gamma_{j}\right).
+\end{cases}\label{eq:image_sources_model}
+\end{equation}
+
+\end_inset
+
+Because
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is the sum of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable vectors, then
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ itself follows an 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable distribution, with the following spatial density:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{cases}
+\boldsymbol{x}\sim S\alpha S_{c}^{K}\left(\Gamma_{\boldsymbol{x}}\right)\\
+\Gamma_{\boldsymbol{x}}=\sum_{j}\Gamma_{j}.
+\end{cases}
+\]
+
+\end_inset
+
+By invoking the spatial representation Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:spatial_representation"
+
+\end_inset
+
+ on each latent vector
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+, we get: 
+\begin_inset Formula $\forall j,\:\boldsymbol{y}_{j}\overset{d}{=}\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\boldsymbol{\theta}\mathcal{Y}_{j}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+, where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{Y}_{j}$
+\end_inset
+
+ denotes the spatial spectrum of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+.
+ Moreover, 
+\begin_inset Formula $\mathcal{X}\triangleq\sum_{j}\mathcal{Y}_{j}$
+\end_inset
+
+ also defines a spatial spectrum associated to
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+.
+ Informally, it simply means that
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is also the sum of infinitely many contributions
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{X}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+, coming from all directions
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\theta}\in\mathcal{S}^{K}$
+\end_inset
+
+ on the sphere, each one of them being in turn the sum of the contributions
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{Y}_{j}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ for all components that come from this particular direction.
+ An illustration of the relationships between the spatial densities
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\boldsymbol{x}},\Gamma_{j}$
+\end_inset
+
+ is given in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Example-of-spatial"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The next two sections make different uses of this spatial representation
+ to devise
+\emph on
+ filters
+\emph default
+, which aim at estimating the latent vectors
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+ given 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+, provided the spatial densities
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+, which are parameters, are 
+\emph on
+known
+\emph default
+.
+ This allows us to dissociate the actual filtering problem from the question
+ of estimating signal parameters.
+ This strategy is for instance classical in the literature focusing on Wiener-ba
+sed filter design
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wiener1949extrapolation,duong_TSALP2010"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Section
+Spatial spectrum filter (SSF) 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Multivariate-Filtering-Through-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Our objective is to estimate each latent vector
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+, such that
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\sum\boldsymbol{y}_{j}=\boldsymbol{x}$
+\end_inset
+
+.
+ The strategy we discuss here proceeds in two steps.
+ Firstly, we estimate the spatial spectrum
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ of the mixture, as described in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Isotropic-random-measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Secondly, this estimate is used to reconstruct the desired latent vectors
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+, as detailed in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Multivariate-signal-reconstructi"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Spatial spectrum estimation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Isotropic-random-measure"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We assume that the observation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}\sim S\alpha S_{c}^{K}\left(\Gamma_{\boldsymbol{x}}\right)$
+\end_inset
+
+ and its spatial density 
+\begin_inset Formula $\Gamma_{x}$
+\end_inset
+
+ are known.
+ The first step in the filter we discuss here is to estimate the spatial
+ spectrum
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+.
+ For this purpose, we choose the 
+\emph on
+a posteriori
+\emph default
+ expectation 
+\begin_inset Formula $\widehat{\mathcal{X}}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathcal{X}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ given 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+, defined in the following sense: for any continuous function
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\psi$
+\end_inset
+
+ on 
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+, satisfying 
+\begin_inset Formula $\int_{\boldsymbol{\theta}\in S^{K}}\left|\psi\left(\boldsymbol{\theta}\right)\right|^{\alpha}\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)<+\infty$
+\end_inset
+
+, we have:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\mathbb{E}\left[\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\text{\psi\left(\boldsymbol{\theta}\right)}\mathcal{X}\left(d\boldsymbol{\theta}\right)\mid\boldsymbol{x}\right]=\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\widehat{\mathcal{X}}\left(d\boldsymbol{\theta}\right).\label{eq:estimator_criterion}
+\end{equation}
+
+\end_inset
+
+Note that it is such that 
+\begin_inset Formula $\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\boldsymbol{\theta}\widehat{\mathcal{X}}\left(d\boldsymbol{\theta}\right)=\boldsymbol{x}$
+\end_inset
+
+.
+ It turns out that in the particular case of an
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $S\alpha S_{c}^{K}\left(\Gamma_{\boldsymbol{x}}\right)$
+\end_inset
+
+ observation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+, 
+\begin_inset Formula $\widehat{\mathcal{X}}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ has the following form:
+\end_layout
+
+\begin_layout Proposition
+\begin_inset CommandInset label
+LatexCommand label
+name "prop:spatial_spectrum_form1"
+
+\end_inset
+
+Under the previous assumptions,
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\widehat{\mathcal{X}}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ can be rewritten as:
+\begin_inset Formula 
+\begin{equation}
+\widehat{\mathcal{X}}\left(d\boldsymbol{\theta}\right)=\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)\quad\text{a.s.}\label{eq:estimator_form}
+\end{equation}
+
+\end_inset
+
+with:
+\end_layout
+
+\begin_layout Proposition
+\begin_inset Formula 
+\begin{equation}
+\forall\boldsymbol{\theta}\in\mathcal{S}^{K},\:\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)=\frac{N\left(\boldsymbol{x},\boldsymbol{\theta}\right)}{D\left(\boldsymbol{x}\right)},\label{eq:estimation_g_x_theta}
+\end{equation}
+
+\end_inset
+
+where
+\end_layout
+
+\begin_layout Proposition
+\begin_inset Formula 
+\begin{equation}
+N\left(\boldsymbol{x},\boldsymbol{\theta}\right)=\alpha i\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\text{\left\langle \boldsymbol{\theta},\boldsymbol{u}\right\rangle }{}^{\left\langle \alpha-1\right\rangle }\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)\,e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}\label{eq:N}
+\end{equation}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\begin{equation}
+D\left(\boldsymbol{x}\right)=\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)\,e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}.\label{eq:D}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proposition
+If
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha>1$
+\end_inset
+
+, the density
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)$
+\end_inset
+
+ is a continuous map on
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+, and hence the measure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\widehat{\mathcal{X}}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ is dominated by
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Proposition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop:spatial_spectrum_form1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\change_deleted 2094518694 1573545809
+ 
+\change_unchanged
+is proved in Appendix
+\begin_inset space ~
+\end_inset
+
+2.
+\end_layout
+
+\begin_layout Standard
+Although
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)$
+\end_inset
+
+ has the closed-form expression 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:estimation_g_x_theta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, its computation is not straightforward because it requires two integrations
+ over
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathbb{K}^{K}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $I_{\boldsymbol{x}}\left(\boldsymbol{u}\right)\triangleq-\ln\left(\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)\right)$
+\end_inset
+
+ be the Levy exponent of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "unser2014introduction"
+literal "true"
+
+\end_inset
+
+).
+ From
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:spectral_measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, it is given by: 
+\begin_inset Formula $I_{\boldsymbol{x}}\left(\boldsymbol{u}\right)=\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left|\left\langle \boldsymbol{u},\boldsymbol{\theta}\right\rangle \right|^{\alpha}\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+.
+ We have the following result, with proofs given in Appendix
+\begin_inset space ~
+\end_inset
+
+2:
+\end_layout
+
+\begin_layout Proposition
+\begin_inset CommandInset label
+LatexCommand label
+name "prop:numerator_calculation"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\beta=1$
+\end_inset
+
+ if 
+\begin_inset Formula $\mathbb{K}=\mathbb{R}$
+\end_inset
+
+, or 
+\begin_inset Formula $\beta=$
+\end_inset
+
+2 if 
+\begin_inset Formula $\mathbb{K}=\mathbb{C}.$
+\end_inset
+
+ Then 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:N"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is equivalent to
+\end_layout
+
+\begin_layout Proposition
+\begin_inset Formula 
+\begin{equation}
+N\left(\boldsymbol{x},\boldsymbol{\theta}\right)=\int_{\boldsymbol{\theta}'\in\mathcal{S}^{K}}\frac{\left\langle \boldsymbol{\theta},\boldsymbol{\theta'}\right\rangle {}^{\left\langle \alpha-1\right\rangle }\left\langle \boldsymbol{\theta'},\boldsymbol{x}\right\rangle }{I_{\boldsymbol{x}}\left(\boldsymbol{\theta'}\right){}^{\frac{\beta K+\alpha}{\alpha}}}\eta\left(\frac{\left|\left\langle \boldsymbol{\theta'},\boldsymbol{x}\right\rangle \right|^{2}}{I_{\boldsymbol{x}}\left(\boldsymbol{\theta'}\right){}^{\frac{2}{\alpha}}}\right)d\boldsymbol{\theta'},\label{eq:numerator}
+\end{equation}
+
+\end_inset
+
+where:
+\begin_inset Formula 
+\begin{equation}
+\eta\left(\rho\right)=\sum_{n=0}^{+\infty}\frac{\left(-1\right){}^{n}f_{\Gamma}\left(\frac{2n+\beta K+\alpha}{\alpha}\right)}{2^{2n+1}n!\left(n+1\right)!}\rho^{n}.\label{eq:eta}
+\end{equation}
+
+\end_inset
+
+with 
+\begin_inset Formula $f_{\Gamma}$
+\end_inset
+
+ the Gamma function.
+ In the same way, 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:D"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is equivalent to
+\end_layout
+
+\begin_layout Proposition
+\begin_inset Formula 
+\begin{equation}
+D\left(\boldsymbol{x}\right)=\frac{\left\Vert \int_{\mathcal{S}^{K}}\boldsymbol{\theta}N\left(\boldsymbol{x},\boldsymbol{\theta}\right)\Gamma_{x}\left(d\boldsymbol{\theta}\right)\right\Vert _{1}}{\left\Vert \boldsymbol{x}\right\Vert _{1}}.\label{eq:Denominator}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proposition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop:numerator_calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\change_deleted 2094518694 1573545809
+ 
+\change_unchanged
+is proved in Appendix
+\begin_inset space ~
+\end_inset
+
+2.
+\end_layout
+
+\begin_layout Standard
+Note that in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Denominator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, any norm could be picked for the computation and yield the same result.
+ The
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\ell_{1}-$
+\end_inset
+
+norm
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left\Vert .\right\Vert {}_{1}$
+\end_inset
+
+ turns out to be a good compromise between computational cost and numerical
+ stability.
+\end_layout
+
+\begin_layout Standard
+Equations
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:numerator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Denominator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in Proposition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop:numerator_calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ provide an estimator of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\gx$
+\end_inset
+
+, which is computationally tractable via integrations on the compact set
+ 
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+, as opposed to
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:estimation_g_x_theta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ that requires integration over 
+\begin_inset Formula $\mathbb{K}^{K}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The quantity
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\eta\left(\rho\right)$
+\end_inset
+
+ is a power series with an infinite radius of convergence when
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha>1$
+\end_inset
+
+.
+ It is a smooth function of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\rho$
+\end_inset
+
+ and independent of the data and the model parameters.
+ It can hence be computed beforehand.
+
+\change_deleted 2094518694 1573545809
+ 
+\change_unchanged
+
+\end_layout
+
+\begin_layout Standard
+The main computational burden for this method lies in the computation of
+ the alternating power series
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\eta$
+\end_inset
+
+ in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:eta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ It converges slowly and goes through extreme values, requiring a fairly
+ large numerical precision in practice.
+ However, there are some cases where a closed-form expression is available,
+ for instance when
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha=2,\,K=2$
+\end_inset
+
+, 
+\begin_inset Formula $\beta=2$
+\end_inset
+
+, where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\eta\left(\rho\right)=\frac{1}{16}\left(\rho^{2}-20\rho+64\right)e^{-\rho/4}$
+\end_inset
+
+.
+ Inspired by this result, we decided to approximate
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\eta$
+\end_inset
+
+ in all cases as:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.25cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\eta\left(\rho\right)\approx\widehat{\eta}\left(\rho\right)=\left(a\rho^{2}+b\rho+c\right)e^{-d\rho}\label{eq:eta_fitting}
+\end{equation}
+
+\end_inset
+
+where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $a,b,c,d\in\mathbb{R}$
+\end_inset
+
+ are model parameters.
+ Using such a parameterized version allows us to avoid the on-demand time-consum
+ing evaluations of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\eta$
+\end_inset
+
+.
+ We estimated the parameters that minimize the mean-square-error (MSE)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left\Vert \eta-\hat{\eta}\right\Vert _{2}^{2}$
+\end_inset
+
+.
+ We highlight that both the choice of this parametric model 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:eta_fitting"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and the choice of the MSE criterion are driven by ad-hoc considerations,
+ indeed, there is no theoretical result we are aware of that would justify
+ the convergence of the power series to an exponential function.
+ However, the plots for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\eta$
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\hat{\eta}$
+\end_inset
+
+ for 
+\begin_inset Formula $\beta=1$
+\end_inset
+
+ are displayed in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Curve-fitting_eta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and the error of fit for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\eta$
+\end_inset
+
+ for 
+\begin_inset Formula $\beta=2$
+\end_inset
+
+ as a function of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is displayed in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Curve-fitting_eta-MSE"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and quality is very good.
+ Results were similar in the real and complex cases.
+ 
+\begin_inset Formula $\eta$
+\end_inset
+
+ was computed for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $50$
+\end_inset
+
+ regularly spaced values
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha\in\left(1,2\right)$
+\end_inset
+
+, and for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\rho\in\left(0,10\right)$
+\end_inset
+
+, because
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\rho$
+\end_inset
+
+ only has positive values in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:numerator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ For getting a suitable convergence,
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\eta$
+\end_inset
+
+ was calculated up to order
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $10^{5}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+subfigure[
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\eta$
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\hat{\eta}$
+\end_inset
+
+ for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha=1.3$ and $\beta=1$
+
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Curve-fitting_eta"
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename eta_example.pdf
+	lyxscale 200
+	width 60col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted 2094518694 1574062519
+
+
+\backslash
+hspace{-0.2cm}
+\change_unchanged
+
+\backslash
+subfigure[
+\end_layout
+
+\end_inset
+
+MSE as a function of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha.$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Curve-fitting_eta-MSE"
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename eta_estimation.pdf
+	lyxscale 200
+	width 63col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Performance of a parametric fit
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\hat{\eta}$
+\end_inset
+
+ for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\eta$
+\end_inset
+
+ in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:eta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+remplacer 
+\begin_inset Quotes eld
+\end_inset
+
+error value
+\begin_inset Quotes erd
+\end_inset
+
+ qui ne veut rien dire par 
+\begin_inset Formula $\left|\eta-\hat{\eta}\right|^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.5cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Signal reconstruction
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Multivariate-signal-reconstructi"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Once the spatial spectrum 
+\begin_inset Formula $\mathcal{X}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ of the observation is estimated, or equivalently
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)$
+\end_inset
+
+ is computed through
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:estimation_g_x_theta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:numerator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Denominator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, our next step is to construct an estimate for the components
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+ of interest.
+ We pick the 
+\emph on
+a posteriori
+\emph default
+ expectation:
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\widehat{\boldsymbol{y}}_{j}\triangleq\mathbb{E}\left[\boldsymbol{y}_{j}\mid\boldsymbol{x}\right]$
+\end_inset
+
+, which is given as follows:
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:source_reconstruction"
+
+\end_inset
+
+Let
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ be the sum of 
+\begin_inset Formula $S\alpha S_{c}^{K}$
+\end_inset
+
+ random vectors
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}\sim S\alpha S_{c}^{K}\left(\Gamma_{j}\right)$
+\end_inset
+
+, each with known spatial density
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+.
+ Then the 
+\emph on
+a
+\begin_inset space ~
+\end_inset
+
+posteriori
+\emph default
+ expectation of each component
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+ given 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is:
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Formula 
+\begin{equation}
+\widehat{\boldsymbol{y}}_{j}\triangleq\mathbb{E}\left[\boldsymbol{y}_{j}\mid\boldsymbol{x}\right]=\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\boldsymbol{\theta}\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)\Gamma_{j}\left(d\boldsymbol{\theta}\right),\label{eq:reconstruction_result}
+\end{equation}
+
+\end_inset
+
+where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\gx$
+\end_inset
+
+ was defined in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:estimation_g_x_theta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The proof of this theorem is also in Appendix
+\begin_inset space ~
+\end_inset
+
+2.
+ A summary of this filtering technique is given in Algorithm
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:algorithm"
+
+\end_inset
+
+:
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Enumerate
+
+\series bold
+Input
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Observation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ of size
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $K$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Regular partition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Theta=\left\{ \Theta_{1},\dots,\Theta_{P}\right\} $
+\end_inset
+
+ of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Characteristic exponent
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha\in\left(1,2\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+spatial densities
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Spatial spectrum estimation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Using
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\hat{\eta}$
+\end_inset
+
+ in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:eta_fitting"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, compute
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\forall p,\,N\left(\boldsymbol{x},\boldsymbol{\theta}_{p}\right)$
+\end_inset
+
+ in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:numerator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Compute
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $D\left(\boldsymbol{x}\right)$
+\end_inset
+
+ in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Denominator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Compute
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\gx\left(\boldsymbol{x},\boldsymbol{\theta}_{p}\right)=\frac{N\left(\boldsymbol{x},\boldsymbol{\theta}_{p}\right)}{D\left(\boldsymbol{x}\right)}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Reconstruction:
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\widehat{\boldsymbol{y}}_{j}=\sum_{p}\boldsymbol{\theta}_{p}\gx\left(x,\boldsymbol{\theta}_{p}\right)\Gamma_{j}\left(\Theta_{p}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\series bold
+\begin_inset Formula $\alpha-$
+\end_inset
+
+SSF
+\series default
+: multivariate
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable filtering through a spatial spectrum estimation
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:algorithm"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Covariation-minimizing filter (CMF)
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Multivariate-Filtering-Through"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Despite a relatively simple expression of 
+\begin_inset Formula $\gx$
+\end_inset
+
+, the estimation technique in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Multivariate-Filtering-Through-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is computationally demanding, due to several numerical integrations.
+ In this section, the spatial representation in
+\begin_inset space ~
+\end_inset
+
+Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:spatial_representation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ will be exploited differently, leading to a faster filtering method.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Subsection
+Spatial spectrum density
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Alpha-stable-filtering-of-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The result and representation of this subsection provides the reader with
+ a better understanding of the filtering method proposed in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Covariation-filtering-technique"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+Assuming that the spatial spectrum
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{X}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ for the mixture is known, we are looking for an estimator
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\widehat{\mathcal{Y}}_{j}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ of the spatial spectrum
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{Y}_{j}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ of each component.
+ Remember that
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}=\sum_{j}\Gamma_{j}$
+\end_inset
+
+.
+ Therefore, all spatial densities
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+ are dominated by
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\boldsymbol{x}}$
+\end_inset
+
+, i.e.
+ there exists some measurable functions
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\rho_{j}$
+\end_inset
+
+, coined in as
+\emph on
+ spatial ratio masks
+\emph default
+, such that:
+\begin_inset Formula 
+\begin{equation}
+\Gamma_{j}(d\boldsymbol{\theta})=\rho_{j}(\boldsymbol{\theta})\,\Gamma_{\boldsymbol{x}}(d\boldsymbol{\theta}),\label{eq:spectral_domination}
+\end{equation}
+
+\end_inset
+
+with
+\begin_inset Formula $\sum_{j}\rho_{j}\left(\boldsymbol{\theta}\right)=1$
+\end_inset
+
+.
+ If we define the estimator
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\widehat{\mathcal{Y}}_{j}(d\boldsymbol{\theta})=\mathbb{E}\left[\mathcal{Y}_{j}(d\boldsymbol{\theta})|\mathcal{X}(d\boldsymbol{\theta})\right]$
+\end_inset
+
+, then the generalized Wiener filtering result in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "liutkus2015generalized"
+literal "true"
+
+\end_inset
+
+ shows that:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{equation}
+\widehat{\mathcal{Y}}{}_{j}(d\boldsymbol{\theta})=\rho_{j}(\boldsymbol{\theta})\mathcal{X}(d\boldsymbol{\theta}).\label{eq:estimator_sj(d\theta)-1}
+\end{equation}
+
+\end_inset
+
+The right side of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:estimator_sj(d\\theta)-1"
+
+\end_inset
+
+ is the product of a spatial spectrum where all increments are independent
+ and a measurable function
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\theta}\mapsto\rho_{j}\left(\boldsymbol{\theta}\right)\in\left[0,1\right]$
+\end_inset
+
+.
+ Thus,
+\begin_inset Formula $\widehat{\mathcal{Y}}{}_{j}(d\boldsymbol{\theta})$
+\end_inset
+
+ is also a spatial spectrum with independent increments.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Covariation between stable variables
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Covariation-between-stable"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Many signal processing studies exploit second-order statistics for the design
+ of digital filters
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cardoso1998blind,duong_TSALP2010,moussaoui2008decomposition"
+literal "true"
+
+\end_inset
+
+).
+ This convenient strategy finds a straightforward probabilistic interpretation
+ through Gaussian processes
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $(\alpha=2$
+\end_inset
+
+), that are characterized by their covariance functions.
+ However, this strategy breaks down for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable processes with
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha<2$
+\end_inset
+
+, because the moments of order
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $p\geq\alpha$
+\end_inset
+
+ are infinite.
+ For this reason, the 
+\emph on
+covariation
+\emph default
+ was introduced
+\emph on
+
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p. 87"
+key "samoradnitsky1994stable,nikias1995signal"
+literal "true"
+
+\end_inset
+
+) as a substitute of the covariance, with many similar properties.
+\end_layout
+
+\begin_layout Definition
+The covariation between two random variables
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left(x_{1},x_{2}\right)$
+\end_inset
+
+, jointly distributed as: 
+\begin_inset Formula $\left(x_{1},x_{2}\right)\triangleq\boldsymbol{x}\sim S\alpha S_{c}^{2}\left(\Gamma_{\boldsymbol{x}}\right)$
+\end_inset
+
+ for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha>1$
+\end_inset
+
+, is defined as:
+\end_layout
+
+\begin_layout Definition
+\begin_inset Formula 
+\[
+\left[x_{1},x_{2}\right]_{\alpha}\triangleq\int_{\boldsymbol{z}=\left(z_{1},z_{2}\right)\in\mathcal{S}^{2}}z_{1}^{\ast}z_{2}^{\left\langle \alpha-1\right\rangle }\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{z}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Je ne comprends toujours pas ce que ça signifie des variables aléatoires
+ conjointement
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $S\alpha S_{c}^{1}$
+\end_inset
+
+.
+ Ce n'est pas clair qu'on parle de parties réelles et imaginaire, et je
+ pense que ces quelques lignes sont inutiles.
+ Pourquoi ne pas directement définir la norme de covariation et référencer
+ samoradnitsky ? J'ai peur qu'on soit incompréhensible ici.
+ 
+\series bold
+J'ai tenté une reformulation plus simple.
+ Roland, si jamais tu a une méthode plus simple pour introduire la norme
+ de covariation, vas-y.
+\end_layout
+
+\end_inset
+
+Moreover, the
+\emph on
+ covariation norm
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p 95"
+key "samoradnitsky1994stable"
+literal "true"
+
+\end_inset
+
+) of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $u\sim S\alpha S_{c}^{1}$
+\end_inset
+
+ is:
+\end_layout
+
+\begin_layout Definition
+\begin_inset Formula 
+\[
+\left\Vert u\right\Vert {}_{\alpha}=\left(\left[u,u\right]_{\alpha}\right)^{1/\alpha}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Remark
+\begin_inset CommandInset label
+LatexCommand label
+name "rem:The-covariation-is"
+
+\end_inset
+
+The covariation is always anti-linear in its left argument.
+ It is also linear in the right argument if and only if all terms of the
+ linear combination on the right-hand side are mutually independent: if
+ 
+\begin_inset Formula $\left(x,x_{1},x_{2}\right)$
+\end_inset
+
+ are jointly 
+\begin_inset Formula $S\alpha S_{c}^{3}$
+\end_inset
+
+ with
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $x_{2}$
+\end_inset
+
+ independent, then 
+\begin_inset Formula $\left[x,x_{1}+x_{2}\right]_{\alpha}=\left[x,x_{1}\right]_{\alpha}+\left[x,x_{2}\right]_{\alpha}$
+\end_inset
+
+.
+ In addition, if
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $x_{2}$
+\end_inset
+
+ are independent then
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left[x_{1},x_{2}\right]_{\alpha}=0$
+\end_inset
+
+, and if
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $x\sim S\alpha S_{c}^{1}\left(\sigma_{x}\right)$
+\end_inset
+
+,
+\begin_inset space ~
+\end_inset
+
+then
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left\Vert x\right\Vert _{\alpha}=\sigma_{x}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Covariation minimization filtering (CMF) technique
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Covariation-filtering-technique"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In Algorithm
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "alg:algorithm"
+
+\end_inset
+
+, the computational cost may be relevant when
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $K$
+\end_inset
+
+ increase.
+ Indeed, we have to sample more values on the hypersphere due to this so-called
+\begin_inset Quotes eld
+\end_inset
+
+curse of dimension
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bellman2013dynamic"
+literal "true"
+
+\end_inset
+
+ and at least two integrals along
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{S}_{\mathbb{C}}^{K}$
+\end_inset
+
+ (or
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $S_{\mathbb{R}}^{K}$
+\end_inset
+
+) are needed.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Our objective in this section is to build a filter to extract the component
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+ from the mixture
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+.
+ Motivated by
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "masry2000alpha"
+literal "true"
+
+\end_inset
+
+), we seek filtering vectors
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{w}_{jk}\in\mathbb{K}^{K}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\widehat{y}_{jk}=\left\langle \boldsymbol{w}_{jk},\boldsymbol{x}\right\rangle $
+\end_inset
+
+ minimizes the covariation norm
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left\Vert y_{jk}-\widehat{y}_{jk}\right\Vert {}_{\alpha}^{\alpha}$
+\end_inset
+
+.
+ Additionally, we enforce 
+\begin_inset Formula $\ensuremath{\sum_{j}\boldsymbol{w}_{jk}=\boldsymbol{e}_{k}}$
+\end_inset
+
+ to guarantee perfect reconstruction of the mixture: 
+\begin_inset Formula $\boldsymbol{x}=\sum_{j}\widehat{\boldsymbol{y}}_{j}$
+\end_inset
+
+.
+ For each
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $k$
+\end_inset
+
+, this results in the following optimization problem with linear equality
+ constraints:
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{cc}
+\underset{}{\text{minimize}} & \sum_{j}\left\Vert y_{jk}-\left\langle \boldsymbol{w}_{jk},\boldsymbol{x}\right\rangle \right\Vert _{\alpha}^{\alpha}\,\mathrm{w.r.t.\,}\boldsymbol{w}_{jk}\\
+\text{subject to} & \sum_{j}\boldsymbol{w}_{jk}=\boldsymbol{e}_{k}.
+\end{array}\label{eq:optimization_problem}
+\end{equation}
+
+\end_inset
+
+The constraints and covariation norm have convenient properties.
+ Firstly, the constraints are linear.
+ Secondly, the criterion is a differentiable function whose derivative is
+ continuous, and it is convex.
+ Thirdly, the covariation norm is coercive.
+ By invoking the Karush, Khun and Tucker theorem
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "boyd2004convex"
+literal "false"
+
+\end_inset
+
+), this optimization problem thus has a unique solution.
+\end_layout
+
+\begin_layout Standard
+We apply the spatial representation in Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:spatial_representation"
+
+\end_inset
+
+ to get 
+\begin_inset Formula $\boldsymbol{x}\overset{d}{=}\int\boldsymbol{\theta}\mathcal{X}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{y}_{j}\overset{d}{=}\int\boldsymbol{\theta}\mathcal{Y}_{j}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+, with integrations done over
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $S^{K}$
+\end_inset
+
+.
+ The Lagrangian of the problem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:optimization_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+pourquoi 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ en terme correctif dans cette equation?
+\series bold
+ Tout simplement pour ne pas le trainer après dans les calculs.
+ dériver ton Lagrangien te fait
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+\mathcal{L}\left(\left\{ \boldsymbol{w}_{jk}\right\} _{j},\boldsymbol{\lambda}_{k}\right) & =\sum_{j}\left\Vert y_{jk}-\left\langle \boldsymbol{w}_{jk},\boldsymbol{x}\right\rangle \right\Vert _{\alpha}^{\alpha}\nonumber \\
+ & +\alpha\Re\left(\boldsymbol{\lambda}_{k}^{\ast}\left(\sum_{j}\boldsymbol{w}_{jk}-\boldsymbol{e}_{k}\right)\right)\label{eq:Lagrangian}
+\end{align}
+
+\end_inset
+
+where the factor 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ in the second line is introduced to simplify the following calculations.
+ Now, thanks to properties of the covariation given in Remark
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "rem:The-covariation-is"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the development of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left\Vert y_{jk}-\widehat{y}_{jk}\right\Vert {}_{\alpha}^{\alpha}$
+\end_inset
+
+ for all
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $j,k$
+\end_inset
+
+ yields:
+\size footnotesize
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+ & \left\Vert y_{jk}-\widehat{y}_{jk}\right\Vert {}_{\alpha}^{\alpha}\nonumber \\
+= & \left\Vert y_{jk}-\sum_{j'}\left\langle \boldsymbol{w}_{jk},\boldsymbol{y}_{j'}\right\rangle \right\Vert _{\alpha}^{\alpha}\nonumber \\
+= & \left\Vert \int\left(\theta_{k}-\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \right)\mathcal{Y}_{j}\left(d\boldsymbol{\theta}\right)\right\Vert _{\alpha}^{\alpha}+\sum_{j'\neq j}\left\Vert \int\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \mathcal{Y}_{j'}\left(d\boldsymbol{\theta}\right)\right\Vert _{\alpha}^{\alpha}\nonumber \\
+= & \int\left|\theta_{k}-\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \right|^{\alpha}\Gamma_{j}\left(d\boldsymbol{\theta}\right)+\sum_{j'\neq j}\int\left|\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \right|^{\alpha}\Gamma_{j'}\left(d\boldsymbol{\theta}\right)\nonumber \\
+= & \int\left(\left|\theta_{k}-\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \right|^{\alpha}-\left|\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \right|^{\alpha}\right)\Gamma_{j}\left(d\boldsymbol{\theta}\right)+\int\left|\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \right|^{\alpha}\Gamma_{x}(d\boldsymbol{\theta}).\label{eq:spatial_decomposition_variation_norm}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By substituting
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:spatial_decomposition_variation_norm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Lagrangian"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and by zeroing the gradient of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{L}$
+\end_inset
+
+ w.r.t.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{w}_{jk}$
+\end_inset
+
+, we get for all
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $j$
+\end_inset
+
+:
+\size small
+
+\begin_inset Formula 
+\begin{align}
+\boldsymbol{\lambda}_{k}= & \int\boldsymbol{\theta}\left(\left(\theta_{k}^{\ast}-\left\langle \boldsymbol{\theta},\boldsymbol{w}_{jk}\right\rangle \right)^{\left\langle \alpha-1\right\rangle }+\left\langle \boldsymbol{\theta},\boldsymbol{w}_{jk}\right\rangle {}^{\left\langle \alpha-1\right\rangle }\right)\Gamma_{j}\left(d\boldsymbol{\theta}\right)\nonumber \\
+ & -\int\boldsymbol{\theta}\left\langle \boldsymbol{\theta},\boldsymbol{w}_{jk}\right\rangle {}^{\left\langle \alpha-1\right\rangle }\Gamma_{x}\left(d\boldsymbol{\theta}\right).\label{eq:grad_lagrangian}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By noting that 
+\begin_inset Formula $z^{\left\langle \alpha-1\right\rangle }=\frac{z}{|z|^{2-\alpha}},$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:grad_lagrangian"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ can be written as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{\lambda}_{k}=-\boldsymbol{P}_{jk}\boldsymbol{w}_{jk}+\boldsymbol{r}_{jk},\label{eq:dev_grad}
+\end{equation}
+
+\end_inset
+
+where the 
+\begin_inset Formula $K\times K$
+\end_inset
+
+ matrix
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{R}_{jk}$
+\end_inset
+
+ and the vector 
+\begin_inset Formula $\boldsymbol{r}_{jk}\in\mathbb{K}^{K}$
+\end_inset
+
+ are defined as:
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset Formula 
+\begin{alignat}{1}
+\boldsymbol{P}_{jk}= & \int\left(\frac{\boldsymbol{\theta}\boldsymbol{\theta}^{\star}}{\left|\theta_{k}-\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \right|^{2-\alpha}}-\frac{\boldsymbol{\theta}\boldsymbol{\theta}^{\star}}{\left|\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \right|^{2-\alpha}}\right)\Gamma_{j}\left(d\boldsymbol{\theta}\right)\nonumber \\
+ & +\int\frac{\boldsymbol{\theta}\boldsymbol{\theta}^{\star}}{\left|\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \right|^{2-\alpha}}\Gamma_{x}\left(d\boldsymbol{\theta}\right).\label{eq:Spatial_covariation_matrix}\\
+\boldsymbol{r}_{jk}= & \int\frac{\boldsymbol{\theta}\theta_{k}^{\star}}{\left|\theta_{k}-\left\langle \boldsymbol{w}_{jk},\boldsymbol{\theta}\right\rangle \right|^{2-\alpha}}\Gamma_{j}\left(d\boldsymbol{\theta}\right).\label{eq:cov_vector}
+\end{alignat}
+
+\end_inset
+
+
+\size default
+Therefore 
+\begin_inset Formula $\boldsymbol{w}_{jk}$
+\end_inset
+
+ is a fixed point of the following equation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{w}_{jk}=\boldsymbol{P}_{jk}^{-1}\left(\boldsymbol{r}_{jk}-\boldsymbol{\lambda}_{k}\right).\label{eq:w_j,k iteration}
+\end{equation}
+
+\end_inset
+
+A sum over
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $j$
+\end_inset
+
+ in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:w_j,k iteration"
+
+\end_inset
+
+ leads to:
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{\lambda}_{k}=\left(\sum_{j}\boldsymbol{P}_{jk}^{-1}\right)^{-1}\left(\left(\sum_{j}\boldsymbol{P}_{jk}^{-1}\boldsymbol{r}_{jk}\right)-\boldsymbol{e}_{k}\right).\label{eq:lambda_update}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Putting together the above results, we propose to design the filters 
+\begin_inset Formula $\boldsymbol{w}_{jk}$
+\end_inset
+
+ based on a fixed-point approach where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{P}_{jk}$
+\end_inset
+
+ in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Spatial_covariation_matrix"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset Formula $\boldsymbol{w}_{jk}$
+\end_inset
+
+ in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:w_j,k iteration"
+
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{\lambda}_{k}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:lambda_update"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are updated in turn.
+ This is summarized in Algorithm
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:MASCOT"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The integrals are replaced by a discrete sum as in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:riemann_approx-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Enumerate
+
+\series bold
+Input
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Observation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ of size
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $K$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Regular partition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Theta=\left\{ \Theta_{1},\dots,\Theta_{P}\right\} $
+\end_inset
+
+ of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Characteristic exponent 
+\begin_inset Formula $\alpha\in\left(1,2\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Spatial densities 
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Initialization
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\forall j,k,\,\boldsymbol{w}_{jk}=\frac{1}{J}\boldsymbol{e}_{k}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall j,k,\,$
+\end_inset
+
+ the entries of 
+\begin_inset Formula $\boldsymbol{P}_{j,k}$
+\end_inset
+
+ are independently drawn from the standard normal distribution
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall k,\,$
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\lambda}_{k}=0$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Updates of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{P}_{jk},\,\boldsymbol{w}_{j,k}$
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\lambda}_{k}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\forall j,k$
+\end_inset
+
+,
+\begin_inset space ~
+\end_inset
+
+ update 
+\begin_inset Formula $\boldsymbol{P}_{jk}$
+\end_inset
+
+ as in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Spatial_covariation_matrix"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\size footnotesize
+\begin_inset Formula $\forall k,\:\boldsymbol{\lambda}_{k}\leftarrow\boldsymbol{\lambda}_{k}+\left(\sum_{j}\boldsymbol{P}_{jk}^{-1}\right)^{-1}\left(\left(\sum_{j}\boldsymbol{w}_{jk}\right)-\boldsymbol{e}_{k}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall j,k$
+\end_inset
+
+, update 
+\begin_inset Formula $\boldsymbol{w}_{jk}$
+\end_inset
+
+ as in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:w_j,k iteration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:cov_vector"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Reconstruction: 
+\begin_inset Formula $\forall j,k,\,\widehat{y}_{jk}=\left\langle \boldsymbol{w}_{jk},\boldsymbol{x}\right\rangle $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\series bold
+\begin_inset Formula $\alpha-$
+\end_inset
+
+CMF
+\series default
+: multivariate
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable filtering through covariation minimization
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:MASCOT"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The Gaussian case (
+\begin_inset Formula $\alpha=2$
+\end_inset
+
+)
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:The-Gaussian-case"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Although the derivations done above focus on the case
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha\in\left(1,2\right)$
+\end_inset
+
+, it is interesting to note the limiting behaviour of the proposed filtering
+ method when 
+\begin_inset Formula $\alpha\rightarrow2$
+\end_inset
+
+.
+ We get:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\forall j,k,\ \boldsymbol{P}_{jk}=\boldsymbol{P}=\int\boldsymbol{\theta}\boldsymbol{\theta}^{\star}\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right),\label{eq:MWF_Rx}
+\end{equation}
+
+\end_inset
+
+which is the covariance matrix of the mixture
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+.
+ Indeed, exploiting the chf.
+ representation in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:spectral_measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we have:
+\begin_inset Formula 
+\begin{align*}
+\forall\boldsymbol{u}\in\mathbb{K}^{K},\:\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right) & =\exp\left(-\int\left|\left\langle \boldsymbol{u},\boldsymbol{\theta}\right\rangle \right|^{2}\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)\right),\\
+ & =\exp\left(-\boldsymbol{u}^{\star}\boldsymbol{P}\boldsymbol{u}\right),
+\end{align*}
+
+\end_inset
+
+which is the chf.
+ of a Gaussian vector of covariance matrix
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{P}.$
+\end_inset
+
+ It is straightforward to show that
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{P}=\sum\boldsymbol{P}_{j}$
+\end_inset
+
+, where 
+\begin_inset Formula $\boldsymbol{P}_{j}$
+\end_inset
+
+ is the covariance matrix of the
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $j^{th}$
+\end_inset
+
+ component, given as in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:MWF_Rx"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ but by integrating against
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{P}_{j}=\int\boldsymbol{\theta}\boldsymbol{\theta}^{\star}\Gamma_{j}\left(d\boldsymbol{\theta}\right).\label{eq:MWF_Pj}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then, 
+\begin_inset Formula $\boldsymbol{r}_{jk}$
+\end_inset
+
+ in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:cov_vector"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ becomes the
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $k^{th}$
+\end_inset
+
+ column of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{P}_{j}$
+\end_inset
+
+.
+ Consequently, when
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha\rightarrow2$
+\end_inset
+
+, the estimates 
+\begin_inset Formula $\widehat{\boldsymbol{y}}_{j}$
+\end_inset
+
+ for the components become:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\widehat{\boldsymbol{y}}_{j}=\boldsymbol{P}_{j}\left(\sum_{j'}\boldsymbol{P}_{j'}\right)^{-1}\boldsymbol{x},\label{eq:MWF_filtering}
+\end{equation}
+
+\end_inset
+
+which is exactly the classical
+\emph on
+ multichannel Wiener filter
+\emph default
+ (MWF)
+\emph on
+,
+\emph default
+ but with parameters computed by exploiting the spatial densities
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+.
+ This is the linear filtering method which minimizes the
+\emph on
+ 
+\emph default
+MSE between the sources and their estimates when second-order moments are
+ available.
+ As expected, the CMF technique presented in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Covariation-filtering-technique"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is a generalization of the MWF to 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable distributions.
+\end_layout
+
+\begin_layout Standard
+Finally, we will propose a last estimator, which is another generalization
+ of the MWF to 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable distributions.
+ Because second-order moments are not defined for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha<2$
+\end_inset
+
+, matrices
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{P}_{j}$
+\end_inset
+
+ cannot be defined through
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{P}_{j}=\mathbb{E}\left[\boldsymbol{y}_{j}\boldsymbol{y}_{j}^{\star}\right]$
+\end_inset
+
+ as in the case 
+\begin_inset Formula $\alpha=2$
+\end_inset
+
+.
+ Nevertheless, it is remarkable that the expression
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:MWF_Pj"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ remains computable whatever
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha\in\left(1,2\right)$
+\end_inset
+
+, making it an interesting method to estimate the parameters of what becomes
+ an 
+\emph on
+ad-hoc
+\emph default
+ filter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:MWF_filtering"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, which we call MWF through an abuse of notation, since it is only equivalent
+ to MWF when
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha=2$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Evaluation
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Evaluation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this section, we assess the performance of the three filtering methods
+ presented in Sections
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Multivariate-Filtering-Through-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Covariation-filtering-technique"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:The-Gaussian-case"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ In this regard, we stress that this paper only addresses the design of
+ filters associated to 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable processes with 
+\emph on
+known
+\emph default
+ parameters
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+.
+ Hence, the estimation of those parameters is kept out of the scope of the
+ present study.
+ The reader can however find spatial measure estimation techniques in (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "nolan2001estimation"
+literal "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "pivato2003estimating"
+literal "false"
+
+\end_inset
+
+).
+ The rationale for disentangling filtering and parameter estimation is to
+ provide a grounded basis for the last filtering step of whole processing
+ pipelines involving 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable processes, as is routinely done for Gaussian processes with the
+ MWF
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duong_TSALP2010,liutkus2011gaussian"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Consequently, this evaluation focuses on the performance of the proposed
+ filters on synthetic data only.
+ The procedure is always the same: firstly, we generate the realizations
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+ according to multivariate symmetric 
+\begin_inset Formula $\text{\ensuremath{\alpha}}$
+\end_inset
+
+-stable distributions with known spatial densities
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+ as in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:alg-synthesis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, then, these realizations are summed to produce the observations
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ to be filtered, and the performance scores are computed by comparing the
+ true
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+ with their estimates.
+ That said, the set of parameters considered spans a wide range of configuration
+s of various difficulties, allowing us to assess the strengths and weaknesses
+ of the proposed methods.
+\end_layout
+
+\begin_layout Subsection
+Experimental setup
+\end_layout
+
+\begin_layout Paragraph*
+Evaluated methods
+\end_layout
+
+\begin_layout Standard
+We investigate the performance of 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+SSF, as presented in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Multivariate-Filtering-Through-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and of 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+CMF with 
+\begin_inset Formula $50$
+\end_inset
+
+ iterations, as presented in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Covariation-filtering-technique"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We compare them with the MWF method described in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:The-Gaussian-case"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, i.e.
+ with parameters 
+\begin_inset Formula $\boldsymbol{P}_{j}$
+\end_inset
+
+ computed as in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:MWF_Pj"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ using the true
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+cMWF 
+\begin_inset space ~
+\end_inset
+
+is the 
+\emph on
+covariance 
+\emph default
+MWF, i.e.
+ with parameters estimated in a more classical way as: 
+\begin_inset Formula $\boldsymbol{P}_{j}=\mathbb{E}\left[\boldsymbol{y}_{j}\boldsymbol{y}_{j}^{\star}\right]$
+\end_inset
+
+.
+ Since this expectation is actually not defined for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable distributed 
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+, empirical averages were considered instead: first, for each source
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $j$
+\end_inset
+
+, 
+\begin_inset Formula $N=500$
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+dire combien tu en as pris ici
+\end_layout
+
+\end_inset
+
+ i.i.d.
+ realizations
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{jn}\sim S\alpha S_{c}^{2}\left(\Gamma_{j}\right)$
+\end_inset
+
+ were drawn, and 
+\begin_inset Formula $\boldsymbol{P}_{j}\leftarrow\frac{1}{N}\sum_{t}\boldsymbol{y}_{jn}\boldsymbol{y}_{jn}^{\star}$
+\end_inset
+
+.
+ Finally, these samples were discarded and 
+\begin_inset Formula $\boldsymbol{P}_{j}$
+\end_inset
+
+ used for filtering any other samples drawn with the same
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Metrics
+\end_layout
+
+\begin_layout Standard
+Because
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha>1$
+\end_inset
+
+, the relative root mean-square error does not exist (except for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha=2$
+\end_inset
+
+).
+ Thus, we only consider the
+\emph on
+ 
+\emph default
+relative mean-absolute error (MAE) defined as:
+\begin_inset Formula 
+\begin{equation}
+\text{MAE}\left(\boldsymbol{y},\widehat{\boldsymbol{y}}\right)=\frac{\sum_{j}\mathbb{E}\left(\left|\boldsymbol{y}_{j}-\widehat{\boldsymbol{y}}_{j}\right|\right)}{\sum_{j}\mathbb{E}\left(\left|\boldsymbol{y}_{j}\right|\right)},\label{eq:MAE}
+\end{equation}
+
+\end_inset
+
+where expectations are approximated by the empirical mean.
+\end_layout
+
+\begin_layout Paragraph*
+The Von-Mises Fisher distribution
+\end_layout
+
+\begin_layout Standard
+As mentioned above, we evaluate all methods in the case of known spatial
+ densities
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+.
+ As a running example, we will take the
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+ as mixtures of Von-Mises Fisher (VMF) distributions, written 
+\begin_inset Formula $\mathcal{V}_{\boldsymbol{\mu},\kappa}$
+\end_inset
+
+, which are defined as:
+\begin_inset Formula 
+\begin{equation}
+\mathcal{V}_{\boldsymbol{\mu},\kappa}\left(d\boldsymbol{\theta}\right)\propto\exp\left(\kappa\boldsymbol{\mu}^{\top}\boldsymbol{\theta}\right)d\boldsymbol{\theta},\label{eq:Von-mises Distribution}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\boldsymbol{\mu}\in\mathcal{S}^{K}$
+\end_inset
+
+ is the
+\emph on
+ mean direction
+\emph default
+ and 
+\begin_inset Formula $\kappa>0$
+\end_inset
+
+ is a
+\emph on
+ concentration parameter
+\emph default
+, which is higher when the mass concentrates close to
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\mu}$
+\end_inset
+
+.
+
+\emph on
+ 
+\emph default
+Since the spatial densities are symmetric, we sample them on the hyper-hemispher
+e only.
+ Although any other choice of a distribution over 
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+ could be made, we picked the VMF because it is the maximum entropy distribution
+ of a random variable on the sphere with known location and spread parameters.
+\end_layout
+
+\begin_layout Subsection
+Performance versus the spatial distance of components
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Spatial-density-model_R"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename angular_deviation.pdf
+	lyxscale 150
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{0.05cm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig: overlap"
+
+\end_inset
+
+Two Spatial Von-Mises densities
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{1},\Gamma_{2}$
+\end_inset
+
+ on the semicircle with respective mean directions
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mu_{1}=\frac{\pi}{3},\mu_{2}=\frac{\pi}{2}$
+\end_inset
+
+ and concentration
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\kappa=15$
+\end_inset
+
+.
+ The red area indicates the overlap between the spatial densities.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this first round of experiments, we focus on the spatial resolution of
+ each algorithm, because filtering out components that are spatially close
+ has many applications, e.g.
+ in audio processing.
+ For this purpose, we study the filtering performance of mixtures of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $J=2$
+\end_inset
+
+ real-valued sources of dimension
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $K=2$
+\end_inset
+
+, so that a direction
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\theta}\in\mathcal{S}^{K}$
+\end_inset
+
+ can be understood as a point on the unit circle.
+\end_layout
+
+\begin_layout Standard
+We take each component
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+ as originating mostly from one direction
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\mu}_{j}$
+\end_inset
+
+, with both components sharing the same concentration parameter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\kappa=15$
+\end_inset
+
+, so that 
+\begin_inset Formula $\Gamma_{j}=\mathcal{V}_{\boldsymbol{\mu}_{j},\kappa}.$
+\end_inset
+
+ Depending on the choice of the directions
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\mu}_{j}$
+\end_inset
+
+, this allows us to create some overlap between the
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+'s.
+ We set a
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $0.2$
+\end_inset
+
+ step-size for 
+\begin_inset Formula $\alpha\in\left[1.2,2\right]$
+\end_inset
+
+, and the mean directions
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\mu}_{j}$
+\end_inset
+
+ for the sources are separated by
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left\{ 5,15,\dots,85\right\} $
+\end_inset
+
+ degrees, with
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\mu}_{1}$
+\end_inset
+
+ randomly positioned on the semi-circle.
+ An example is given in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig: overlap"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Algorithms 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+SSF and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha-$
+\end_inset
+
+CMF were run with partitions 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ composed of 
+\begin_inset Formula $P=180$
+\end_inset
+
+ regions.
+ For each configuration of the
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\mu}_{j}$
+\end_inset
+
+, the performance of all methods was evaluated on the filtering of 
+\begin_inset Formula $N=2000$
+\end_inset
+
+ independent realizations.
+ 
+\begin_inset Formula $100$
+\end_inset
+
+ different such experiments were conducted to report the scores.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename experience1-1.pdf
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:RMSE-angular_deviation"
+
+\end_inset
+
+MAE box plot (lower is better) of MWF, 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+CMF and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha-$
+\end_inset
+
+SSF methods for several angular deviations between spatial densities and
+ 
+\begin_inset Formula $\alpha=1.6$
+\end_inset
+
+.
+ The box plots shows the minimum and maximum for whiskers, and 75th/25th
+ percentiles for boxes.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename experience1-2.pdf
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:RMSE-angular_deviation-vs-alpha"
+
+\end_inset
+
+MAE performance (lower is better) as a function of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha$
+\end_inset
+
+, for a distance of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $25$
+\end_inset
+
+ degrees between the sources.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The corresponding MAE
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:MAE"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ values for 
+\begin_inset Formula $\alpha=1.6$
+\end_inset
+
+ are displayed in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:RMSE-angular_deviation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ As can be seen on this figure, 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+SSF globally outperforms the other methods for all the angular distances
+ between the sources, followed by
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha-$
+\end_inset
+
+CMF.
+ While these two methods behave similarly, they both outperform MWF.
+\end_layout
+
+\begin_layout Standard
+In Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:RMSE-angular_deviation-vs-alpha"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we show the evolution of these scores as a function of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, for a fixed deviation of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $25$
+\end_inset
+
+ degrees between the sources.
+ As can be seen, smaller values for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha$
+\end_inset
+
+ lead to a degradation of the performance, due to the extremely heavy tails
+ of the distributions.
+ However, we notice that all proposed methods remain quite robust.
+ Hence, even MWF, the proposed approach that exploits the spatial densities
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+ to build the MWF filters as discussed in Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:The-Gaussian-case"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, is remarkably effective.
+ In practice, decreasing 
+\begin_inset Formula $P$
+\end_inset
+
+ often causes instability for MWF, while increasing 
+\begin_inset Formula $P$
+\end_inset
+
+ does not significantly change scores.
+\end_layout
+
+\begin_layout Subsection
+Performance versus the number of components
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Evaluation-complex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this second set of experiments, we evaluate our proposed filtering methods
+ in the complex case with
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $K=2$
+\end_inset
+
+.
+ Our objective here is to assess the performance with a varying number 
+\begin_inset Formula $J$
+\end_inset
+
+ of components to separate.
+ Hence, for 
+\begin_inset Formula $J\in\left\{ 2,\dots,8\right\} $
+\end_inset
+
+, 
+\begin_inset Formula $\alpha\in\left[1.2,2\right]$
+\end_inset
+
+, and 
+\begin_inset Formula $N=2000$
+\end_inset
+
+ independent realizations, we run
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $100$
+\end_inset
+
+ independents experiments, where the spatial densities are VMF distributions
+ with random parameters 
+\begin_inset Formula $\kappa_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{\mu}_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Regarding the computation of our integrals as in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:riemann_approx-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for this complex case, they were performed with
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $P=400$
+\end_inset
+
+ values for the partition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Theta$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename experience2.pdf
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+MAE averaged over all sources for 
+\begin_inset Formula $\alpha\in\left[1.2,2\right]$
+\end_inset
+
+.
+ The solid lines display the median, and the light areas the standard deviation
+ of each method.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:RMSE-error-for"
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ce sera surement aussi plus joli en boxplot ? ou alors rajoute des points
+ plus gros sur les endroits des mesures (au abscisses 2 3 4 5 6 7 8), ça
+ peut donner un truc joli
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The results shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:RMSE-error-for"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are in line with those for
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $J=2$
+\end_inset
+
+ reported above, and suggest that the
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha-$
+\end_inset
+
+SSF method globally outperforms the three other methods for all configurations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\size large
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+MWF
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+\begin_inset Formula $\alpha-$
+\end_inset
+
+CMF
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+\begin_inset Formula $\alpha-$
+\end_inset
+
+SSF
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+\begin_inset Formula $J=2$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size large
+0.02
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+0.18
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+1.02
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+\begin_inset Formula $J=3$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size large
+0.02
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+0.20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+1.11
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+\begin_inset Formula $J=5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size large
+0.02
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+0.45
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+1.12
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+\begin_inset Formula $J=8$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size large
+0.02
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+0.65
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size large
+1.16
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{0.15cm}
+\end_layout
+
+\end_inset
+
+
+\size default
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Elapsed-time"
+
+\end_inset
+
+Elapsed time (in sec., lower is better) for each filtering method.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Now, we show that this increase of performance comes at the price of an
+ increased computational cost.
+ Indeed, the computational complexity of the 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+SSF method is 
+\begin_inset Formula $\mathcal{O}\left(P^{4}\left(P^{'}\right)^{4}K^{5}N^{3}+JP^{3}K^{2}N\right)$
+\end_inset
+
+, where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $P'$
+\end_inset
+
+ is the number of samples for the discretization of integrals in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:numerator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ wrt.
+ the Lebesgue measure, while for 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+CMF it is 
+\begin_inset Formula $\mathcal{O}\left(IJK^{4}P^{4}N\right)$
+\end_inset
+
+, where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $I$
+\end_inset
+
+ denotes the number of iterations performed in Algorithm
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:MASCOT"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The number 
+\begin_inset Formula $P$
+\end_inset
+
+ and 
+\begin_inset Formula $P'$
+\end_inset
+
+ of cells used to sample 
+\begin_inset Formula $\mathcal{S}^{K}$
+\end_inset
+
+ inherently depends on 
+\begin_inset Formula $K$
+\end_inset
+
+, and increase exponentially according to the curse of dimensionality (see
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand citet
+key "bellman2013dynamic"
+literal "false"
+
+\end_inset
+
+).
+ This explains why evaluations are only performed when 
+\begin_inset Formula $K=2$
+\end_inset
+
+, and suggests an important research direction to scale the proposed method
+ to higher spatial dimensions.
+ In Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Elapsed-time"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we report the average computing time for the different methods to process
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $N=2000$
+\end_inset
+
+ samples, as observed with our Python implementation running on a regular
+ small laptop computer with an i7-4810MQ CPU and 32 GB of RAM.
+ We observe that the MWF method is the fastest, followed by 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-CMF and by 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-SSF.
+ Analyzing the methods further, we observe that a large part of the computing
+ time for 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+SSF is spent on computing
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)$
+\end_inset
+
+, so that separating additional components 
+\begin_inset Formula $J$
+\end_inset
+
+ doesn't yield a significant increase in computational load, as for MWF.
+\end_layout
+
+\begin_layout Subsection
+Filtering spatially scattered sources
+\end_layout
+
+\begin_layout Standard
+In the preceding sections, we estimated components whose spatial density
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+ was a simple VMF distribution, hence corresponding to only one direction
+ of arrival
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mu_{j}$
+\end_inset
+
+, with some variations brought in by the concentration parameter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\kappa_{j}$
+\end_inset
+
+.
+ We now investigate more diverse spatial densities, where each (real) source
+ is characterized by several directions of arrival.
+ This is done by taking each
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+ as a mixture of 
+\begin_inset Formula $C$
+\end_inset
+
+ VMF distributions:
+\begin_inset Formula 
+\[
+\forall j,\:\Gamma_{j}\left(d\boldsymbol{\theta}\right)=\sum_{c}w_{jc}\mathcal{V}_{\boldsymbol{\mu}_{jc},\kappa_{jc}}\left(d\boldsymbol{\theta}\right),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathcal{V}_{\boldsymbol{\mu}_{jc},\kappa_{jc}}$
+\end_inset
+
+ is defined in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Von-mises Distribution"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $w_{jc}\in\left[0,1\right]$
+\end_inset
+
+ are weight parameters, such that 
+\begin_inset Formula $\forall j,\:\sum_{c}w_{jc}=1$
+\end_inset
+
+.
+ Examples of realizations for such models are depicted in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Example-of-spatial"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for 
+\begin_inset Formula $K=2$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We considered
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $5$
+\end_inset
+
+ regularly spaced 
+\begin_inset Formula $\alpha\in\left[1.2,2\right]$
+\end_inset
+
+ and the separation of 
+\begin_inset Formula $N=2000$
+\end_inset
+
+ i.i.d.
+ samples from 
+\begin_inset Formula $J=4$
+\end_inset
+
+ components, whose spatial densities
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{j}$
+\end_inset
+
+ are mixtures of 
+\begin_inset Formula $C=2,3,4$
+\end_inset
+
+ VMF distributions, with parameters 
+\begin_inset Formula $w_{jc}$
+\end_inset
+
+, 
+\begin_inset Formula $\boldsymbol{\mu}_{jc}$
+\end_inset
+
+ and 
+\begin_inset Formula $\kappa_{jc}$
+\end_inset
+
+ drawn randomly anew for each of the 
+\begin_inset Formula $100$
+\end_inset
+
+ experiments.
+ The circle is uniformly divided into 
+\begin_inset Formula $P=360$
+\end_inset
+
+ arcs.
+ 
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename experience3.pdf
+	width 80col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+MAE boxplot for 
+\begin_inset Formula $\alpha=1.4$
+\end_inset
+
+.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:experience3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Results for this experiment are depicted in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:experience3"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, giving the MAE as a function of the number 
+\begin_inset Formula $C$
+\end_inset
+
+ of directions of arrivals for each component.
+ We see that 
+\begin_inset Formula $\alpha-$
+\end_inset
+
+SSF slightly outperforms the other proposed methods and that the performance
+ is overall not so sensitive to the number of components.
+ We believe that the slight gain brought in by 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-SSF can be explained by the fact that it is a non-linear filter and may
+ hence better handle more sophisticated spatial models.
+\change_inserted 2094518694 1574063431
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted 2094518694 1574129496
+
+
+\backslash
+vspace{-0.2cm}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
+\end_layout
+
+\begin_layout Section
+Conclusion & Future works
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Conclusion-&-Future"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this paper, we showed how the multivariate symmetric 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-stable (
+\begin_inset Formula $S\alpha S$
+\end_inset
+
+) distribution can be used in filtering applications.
+\end_layout
+
+\begin_layout Standard
+An 
+\begin_inset Formula $S\alpha S$
+\end_inset
+
+ distribution features remarkably 
+\emph on
+heavy tails,
+\emph default
+ that permit the modeling of signals with very large dynamics.
+ As we showed, an 
+\begin_inset Formula $S\alpha S$
+\end_inset
+
+ vector is characterized by a 
+\emph on
+spatial density
+\emph default
+, that indicates the amount of energy originating from every direction in
+ space.
+ It hence naturally relaxes the common assumption of deterministic directions
+ of arrival made for multivariate observations.
+ One key asset of this model is then to straightforwardly extend to mixtures
+ of such vectors, owing to the stability property of their distributions.
+\end_layout
+
+\begin_layout Standard
+Equipped with such a powerful multivariate probabilistic model, we proposed
+ several filters able to recover 
+\begin_inset Formula $S\alpha S$
+\end_inset
+
+ vectors from the observation of their sum.
+ The first one relies on a 
+\emph on
+spatial spectrum
+\emph default
+ decomposition and may be understood as the combination of a nonlinear beamforme
+r followed by a scalar filter.
+ The second one enforces 
+\emph on
+linear
+\emph default
+ filtering and minimizes the 
+\emph on
+covariation
+\emph default
+ of the difference between estimates and target.
+ As we show, these filters generalize the classical multivariate Wiener
+ filter to heavy-tailed signals.
+\end_layout
+
+\begin_layout Standard
+Throughout the paper, we considered the separation of real and complex 
+\begin_inset Formula $S\alpha S$
+\end_inset
+
+ vectors.
+ A very straightforward application of these developments is the filtering
+ of multivariate time series, via their short-time Fourier transforms.
+ Indeed, this would simply mean generalizing the recently proposed 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-harmonizable processes
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "liutkus2015generalized"
+literal "false"
+
+\end_inset
+
+) to the multivariate case.
+\end_layout
+
+\begin_layout Standard
+A natural route for future work is the combination of such filters with
+ effective parameter estimation techniques similar to those presented in
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fontaine2017EUSIPCO"
+literal "false"
+
+\end_inset
+
+).
+ All together, they would form a principled processing pipeline for heavy-tailed
+ and impulsive multivariate signals.
+ Furthermore, finding a way to proceed to the required integrations over
+ the hypersphere without a bruteforce partitioning as done here would allow
+ the use of the proposed method in high-dimensional settings.
+\change_deleted 2094518694 1574063534
+
+\end_layout
+
+\begin_layout Section
+\start_of_appendix
+Proofs
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Appendix-B"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+1
+\begin_inset Formula $-$
+\end_inset
+
+ Proof of spatial representation theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Appendix1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\mathbb{K}=\mathbb{C},$
+\end_inset
+
+ by substituting in the theorem 6.3.4.
+ in
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p. 284"
+key "samoradnitsky1994stable"
+literal "true"
+
+\end_inset
+
+), the terms:
+\begin_inset Formula 
+\begin{align*}
+ & \ensuremath{E=\mathcal{S}^{K}},\:\ensuremath{\boldsymbol{x}=\boldsymbol{\theta}},\,\ensuremath{M\left(d\boldsymbol{x}\right)=\mathcal{X}\left(d\boldsymbol{\theta}\right)},\:\ensuremath{m\left(dx\right)=\Gamma_{x}\left(d\boldsymbol{\theta}\right)},\:\ensuremath{d=K},\\
+ & \ensuremath{\:j=k,}z_{j}=u_{k},\ensuremath{T=\left[1\ldots K\right]},\:\ensuremath{t_{j}=k},\:\ensuremath{f_{t_{j}}\left(x\right)=x_{t_{j}}=\theta_{k}}
+\end{align*}
+
+\end_inset
+
+we get that the chf.
+ of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\boldsymbol{\theta}\mathcal{X}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ is:
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+\begin_inset Formula 
+\begin{equation}
+\forall\boldsymbol{u}\in\mathbb{C}^{K},\:\mathbb{E}\left[\exp\left(i\Re\left\langle \boldsymbol{u},\int_{\mathcal{S}^{K}}\boldsymbol{\theta}\,\mathcal{X}\left(d\boldsymbol{\theta}\right)\right\rangle \right)\right]=\exp\left(-\int_{\mathcal{S}^{K}}\left|\left\langle \boldsymbol{u},\boldsymbol{\theta}\right\rangle \right|^{\alpha}\Gamma_{x}\left(d\boldsymbol{\theta}\right)\right).\label{eq:stochastic_version}
+\end{equation}
+
+\end_inset
+
+
+\size default
+The right side of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:stochastic_version"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is exactly the chf.
+ of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+.
+ This identification achieves the proof of Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:spatial_representation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\mathbb{K}=\mathbb{R},$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:spatial_representation"
+
+\end_inset
+
+ can be demonstrated by applying the theorem 3.5.6.
+ in
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p 131"
+key "samoradnitsky1994stable"
+literal "true"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsection*
+2
+\begin_inset Formula $-$
+\end_inset
+
+ Proof of spatial spectrum estimation
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Appendix2"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Proof of Proposition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop:spatial_spectrum_form1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\forall v\in\mathbb{K},\,c\left(v\right)\triangleq\varphi_{\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\mathcal{X}\left(d\boldsymbol{\theta}\right)\mid\boldsymbol{x}}\left(v\right)$
+\end_inset
+
+.
+ Note that if the first derivative exists (in the sense of the Wirtinger
+ derivatives), we have:
+\begin_inset Formula 
+\begin{equation}
+\mathbb{E}\left[\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\mathcal{X}\left(d\boldsymbol{\theta}\right)\mid\boldsymbol{x}\right]=-i\frac{dc}{dv^{\star}}\left(v=0\right).\label{eq:conditionnal_expectation}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Attention, 
+\begin_inset Formula $\nu$
+\end_inset
+
+ étant un paramètre complexe, il faut préciser dans quel sens la dérivée
+ par rapport à 
+\begin_inset Formula $\nu$
+\end_inset
+
+ est définie (sachant que la fonction 
+\begin_inset Formula $c$
+\end_inset
+
+ n'est clairement pas analytique par rapport à 
+\begin_inset Formula $\nu$
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In order to find a suitable form of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $c$
+\end_inset
+
+, we start by calculating the joint chf.
+ of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\mathcal{X}\left(d\boldsymbol{\theta}\right)$
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x},\,\forall v\in\mathbb{K},\,\forall\boldsymbol{u}\in\mathbb{K}^{K}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\varphi_{\left(\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\mathcal{X}\left(d\boldsymbol{\theta}\right),\boldsymbol{x}\right)}\left(v,\boldsymbol{u}\right) & \triangleq\mathbb{E}\left[e^{i\Re\left(v^{\ast}\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\,\mathcal{X}\left(d\boldsymbol{\theta}\right)+\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}\right]\\
+ & =\mathbb{E}\left[e^{i\Re\left(\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left(v^{\ast}\psi\left(\boldsymbol{\theta}\right)+\left\langle \boldsymbol{u},\boldsymbol{\theta}\right\rangle \right)\:\mathcal{X}\left(d\boldsymbol{\theta}\right)\right)}\right]\\
+ & =\varphi_{\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left(v^{\ast}\psi\left(\boldsymbol{\theta}\right)+\langle\boldsymbol{u},\boldsymbol{\theta}\rangle\right)\:\mathcal{X}\left(d\boldsymbol{\theta}\right)}\left(1\right)\\
+ & =e^{-\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left|v^{\ast}\psi\left(\boldsymbol{\theta}\right)+\left\langle \boldsymbol{u},\boldsymbol{\theta}\right\rangle \right|{}^{\alpha}\:\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)},
+\end{align*}
+
+\end_inset
+
+where the last equality holds because
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{c}
+\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left(v^{\ast}\psi\left(\boldsymbol{\theta}\right)+\left\langle \boldsymbol{u},\boldsymbol{\theta}\right\rangle \right)\:\mathcal{X}\left(d\boldsymbol{\theta}\right)\\
+\sim S\alpha S_{c}^{K}\left(\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left|v^{\ast}\psi(\boldsymbol{\theta})+\langle\boldsymbol{u},\boldsymbol{\theta}\rangle\right|{}^{\alpha}\:\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)\right).
+\end{array}
+\]
+
+\end_inset
+
+Thus, 
+\begin_inset Formula $c$
+\end_inset
+
+ has the following form:
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\forall v\in\mathbb{K}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+c(v) & =\frac{\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\varphi_{\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\mathcal{X}\left(d\boldsymbol{\theta}\right),\boldsymbol{x}}\left(v,\boldsymbol{u}\right)e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}{\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}\nonumber \\
+ & =\frac{\int_{\boldsymbol{u}\in\mathbb{K}^{K}}e^{-\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left|v^{\ast}\psi(\boldsymbol{\theta})+\langle\boldsymbol{u},\boldsymbol{\theta}\rangle\right|{}^{\alpha}\:\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)}e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}{\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}.\label{eq:chf_form_spatial_spectrum}
+\end{align}
+
+\end_inset
+
+The existence of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\frac{dc}{dv^{\star}}\left(v=0\right)$
+\end_inset
+
+ is because 
+\begin_inset Formula 
+\[
+\nu\mapsto\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\varphi_{\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\mathcal{X}\left(d\boldsymbol{\theta}\right),\boldsymbol{x}}\left(v,\boldsymbol{u}\right)e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}
+\]
+
+\end_inset
+
+ is the Fourier transform of a characteristic function whose first derivative
+ exists because
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha>1$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+(if a random vector admits a 
+\begin_inset Formula $1^{st}$
+\end_inset
+
+ order moment, then its characteristic function is continuously differentiable
+ at zero).
+ Consequently, by using the differentiation under the integral sign theorem
+ (the domination is induced by the fact that a chf.
+ is bounded by
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $1$
+\end_inset
+
+) and by
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The function
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $v\mapsto h\left(\boldsymbol{u},v\right)=e^{-\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}|v^{\ast}\psi(\boldsymbol{\theta})+\langle\boldsymbol{u},\boldsymbol{\theta}\rangle|^{\alpha}\:\Gamma_{\boldsymbol{x}}(d\boldsymbol{\theta})}e^{-i\Re(\langle\boldsymbol{u},\boldsymbol{x}\rangle)},\forall v\in\mathbb{C}$
+\end_inset
+
+ is clearly continuous because
+\begin_inset Formula $v\mapsto e^{-\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}|v^{\ast}\psi(\boldsymbol{\theta})+\langle\boldsymbol{u},\boldsymbol{\theta}\rangle|^{\alpha}\:\Gamma_{\boldsymbol{x}}(d\boldsymbol{\theta})}=\varphi_{\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}(v^{\ast}\psi(\boldsymbol{\theta})+\langle\boldsymbol{u},\boldsymbol{\theta}\rangle)\:x(d\boldsymbol{\theta})}(1)$
+\end_inset
+
+ is a chf.
+ and thus uniformly continuous.
+ Its derivative
+\begin_inset Formula $v\mapsto\int_{\boldsymbol{\theta'}\in\mathcal{S}_{\mathbb{C}}^{K}}-\psi\left(\boldsymbol{\theta}'\right)\left(v^{\ast}\psi(\boldsymbol{\theta'})+\langle\boldsymbol{u},\boldsymbol{\theta}'\rangle\right)^{\left\langle \alpha-1\right\rangle }\Gamma_{\boldsymbol{x}}(d\boldsymbol{\theta}')\times e^{-\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}|v^{\ast}\psi(\boldsymbol{\theta})+\langle\boldsymbol{u},\boldsymbol{\theta}\rangle|^{\alpha}\:\Gamma_{\boldsymbol{x}}(d\boldsymbol{\theta})}$
+\end_inset
+
+ is also continuous [ET ENCORE POUR JUSTIFIER IL FAUT APPLIQUER LE THEOREME
+ DE DERIVATION D'UNE I.D.P.
+ SUR
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $v\mapsto e^{-\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}|v^{\ast}\psi(\boldsymbol{\theta})+\langle\boldsymbol{u},\boldsymbol{\theta}\rangle|^{\alpha}\:\Gamma_{\boldsymbol{x}}(d\boldsymbol{\theta})}$
+\end_inset
+
+ ] as a product of two continuous functions in a neighbourhood of zero.
+\end_layout
+
+\end_inset
+
+ combining
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:conditionnal_expectation"
+
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:chf_form_spatial_spectrum"
+
+\end_inset
+
+ we obtain:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{cc}
+ & \mathbb{E}\left[\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\mathcal{X}\left(d\boldsymbol{\theta}\right)\mid\boldsymbol{x}\right]\\
+= & \frac{\alpha i\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\left(\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\left\langle \boldsymbol{\theta},\boldsymbol{u}\right\rangle {}^{\left\langle \alpha-1\right\rangle }\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)\right)\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}du}{\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}\\
+= & \int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\left[\frac{\alpha i\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\left\langle \boldsymbol{\theta},\boldsymbol{u}\right\rangle {}^{\left\langle \alpha-1\right\rangle }\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)\,e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}{\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)\,e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}\right]\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right)\\
+= & \int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\psi\left(\boldsymbol{\theta}\right)\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right).
+\end{array}\label{eq:end_calculation_cond_exp}
+\end{equation}
+
+\end_inset
+
+where we have used
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:estimation_g_x_theta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Equation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:estimator_form"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is obtained by identifying
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:end_calculation_cond_exp"
+
+\end_inset
+
+ with
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:estimator_criterion"
+
+\end_inset
+
+ for any continuous function 
+\begin_inset Formula $\psi\left(\boldsymbol{\theta}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{0.5cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Proof of Proposition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop:spatial_spectrum_form1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\change_inserted 2094518694 1574063188
+ 
+\change_unchanged
+about continuity
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Mathieu 31.07 
+\series medium
+Preuve que j'avais oublié de rajouter (alors que son existence est mentionné
+ dans l'article)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\forall\boldsymbol{u}\in\mathbb{K}^{K},\:\boldsymbol{\theta}\mapsto h\left(\boldsymbol{\theta},\boldsymbol{u}\right)=\left\langle \boldsymbol{\theta},\boldsymbol{u}\right\rangle ^{\left\langle \alpha-1\right\rangle }\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)e^{-i\Re(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle )}$
+\end_inset
+
+ is a continuous function.
+ Moreover, the probability density function (pdf.) of an
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $S\alpha S_{c}$
+\end_inset
+
+ (non-degenerated) distribution is infinitely continuous.
+ As a result, the characteristic function
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)$
+\end_inset
+
+ for all 
+\series bold
+
+\begin_inset Formula $\boldsymbol{u}\in\mathbb{K}^{K}$
+\end_inset
+
+
+\series default
+(which is the Fourier transform of a pdf.) decreases faster than any power
+ of 
+\begin_inset Formula $\left\Vert u\right\Vert $
+\end_inset
+
+ (where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\left\Vert .\right\Vert $
+\end_inset
+
+ is any norm on
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathbb{K}^{K}$
+\end_inset
+
+).
+ In particular, 
+\begin_inset Formula $\boldsymbol{u}\mapsto f\left(\boldsymbol{u}\right)=\left\Vert \boldsymbol{u}\right\Vert ^{\alpha-1}\left|\varphi_{x}\left(\boldsymbol{u}\right)\right|$
+\end_inset
+
+ is integrable.
+ Besides, 
+\begin_inset Formula $\forall\boldsymbol{\theta}\in\mathcal{S}^{K},$
+\end_inset
+
+ 
+\begin_inset Formula $\left|\left\langle \boldsymbol{\theta},\boldsymbol{u}\right\rangle ^{\left\langle \alpha-1\right\rangle }\right|\leq\left\Vert \boldsymbol{u}\right\Vert ^{\alpha-1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\forall\boldsymbol{u}\in\mathbb{K}^{K},\,\left|h\left(\boldsymbol{\theta},\boldsymbol{u}\right)\right|\leq f\left(\boldsymbol{u}\right)$
+\end_inset
+
+.
+ By applying the theorem of continuity under the integral sign, we conclude
+ that
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)$
+\end_inset
+
+ is a continuous function of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\theta}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection*
+Proof of Proposition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop:numerator_calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We consider the numerator
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $N\left(\boldsymbol{x},\boldsymbol{\theta}\right)$
+\end_inset
+
+ of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)$
+\end_inset
+
+ in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:N"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and apply the change of variables
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{u}\triangleq r\boldsymbol{\theta}'\in\mathbb{K}^{K}$
+\end_inset
+
+ where
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $r\in\mathbb{R}^{+}$
+\end_inset
+
+and 
+\begin_inset Formula $\boldsymbol{\theta}'\in\mathcal{S}^{K}$
+\end_inset
+
+, which is such that 
+\begin_inset Formula $d\boldsymbol{u}=r^{\beta K-1}drd\boldsymbol{\theta}'$
+\end_inset
+
+.
+ Then we get:
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+\begin_inset Formula 
+\begin{multline*}
+N\left(\boldsymbol{x},\boldsymbol{\theta}\right)=i\int_{\boldsymbol{\theta}'\in\mathcal{S}^{K}}\left\langle \boldsymbol{\theta},\boldsymbol{\theta'}\right\rangle {}^{\left\langle \alpha-1\right\rangle }\\
+\qquad\qquad\qquad\left(\int_{r\in\mathbb{R}_{+}}\left(\alpha r^{\alpha-1}e^{-r^{\alpha}I_{\boldsymbol{x}}\left(\boldsymbol{\theta'}\right)}\right)\left(r^{\beta K-1}e^{-ir\Re\left(\left\langle \boldsymbol{\theta'},\boldsymbol{x}\right\rangle \right)}\right)dr\right)d\boldsymbol{\theta'}.
+\end{multline*}
+
+\end_inset
+
+
+\size default
+Applying an integration by parts to
+\size footnotesize
+ 
+\begin_inset Formula $\int_{r\in\mathbb{R}_{+}}\left(\alpha r^{\alpha-1}e^{-r^{\alpha}I_{\boldsymbol{x}}\left(\boldsymbol{\theta'}\right)}\right)\left(r^{\beta K-1}e^{-ir\Re\left(\left\langle \boldsymbol{\theta'},\boldsymbol{x}\right\rangle \right)}\right)dr$
+\end_inset
+
+
+\size default
+ yields:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+N\left(\boldsymbol{x},\boldsymbol{\theta}\right)=A\left(\boldsymbol{\theta},\boldsymbol{x}\right)+\left(\beta K-1\right)iB\left(\boldsymbol{\theta},\boldsymbol{x}\right)
+\]
+
+\end_inset
+
+where
+\size footnotesize
+
+\begin_inset Formula 
+\begin{align*}
+A\left(\boldsymbol{\theta},\boldsymbol{x}\right) & =\int_{\boldsymbol{\theta}'\in\mathcal{S}^{K}}\frac{\left\langle \boldsymbol{\theta},\boldsymbol{\theta'}\right\rangle {}^{\left\langle \alpha-1\right\rangle }\Re\left(\left\langle \boldsymbol{\theta'},\boldsymbol{x}\right\rangle \right)}{I_{\boldsymbol{x}}\left(\boldsymbol{\theta'}\right)}\\
+ & \qquad\qquad\qquad\qquad\left(\int_{r\in\mathbb{R}_{+}}r^{\beta K-1}e^{-r^{\alpha}I_{\boldsymbol{x}}\left(\boldsymbol{\theta'}\right)}e^{-ir\Re\left(\left\langle \boldsymbol{\theta'},\boldsymbol{x}\right\rangle \right)}dr\right)d\boldsymbol{\theta'}\\
+B\left(\boldsymbol{\theta},\boldsymbol{x}\right) & =\int_{\boldsymbol{\theta}'\in\mathcal{S}^{K}}\frac{\left\langle \boldsymbol{\theta},\boldsymbol{\theta'}\right\rangle {}^{\left\langle \alpha-1\right\rangle }}{I_{\boldsymbol{x}}\left(\boldsymbol{\theta'}\right)}\\
+ & \qquad\qquad\qquad\qquad\left(\int_{r\in\mathbb{R}_{+}}r^{\beta K-2}e^{-r^{\alpha}I_{\boldsymbol{x}}\left(\boldsymbol{\theta'}\right)}e^{-ir\Re\left(\left\langle \boldsymbol{\theta'},\boldsymbol{x}\right\rangle \right)}dr\right)d\boldsymbol{\theta'}.
+\end{align*}
+
+\end_inset
+
+
+\size default
+By developing the complex exponential as a power series and by applying
+ the identity
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\int_{0}^{+\infty}x^{n}e^{-ax^{b}}dx=\frac{1}{b}a^{-\frac{n+1}{b}}f_{\Gamma}\left(\frac{n+1}{b}\right)$
+\end_inset
+
+ to both integrals
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $A\left(\boldsymbol{\theta},\boldsymbol{x}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $B\left(\boldsymbol{\theta},\boldsymbol{x}\right)$
+\end_inset
+
+, we get:
+\end_layout
+
+\begin_layout Standard
+
+\size scriptsize
+\begin_inset Formula 
+\begin{align}
+A\left(\boldsymbol{\theta},\boldsymbol{x}\right) & =\tfrac{1}{\alpha}\int_{\boldsymbol{\theta}'\in\mathcal{S}^{K}}\sum_{n=0}^{+\infty}\tfrac{\left(-i\right){}^{n}f_{\Gamma}\left(\frac{n+\beta K}{\alpha}\right)}{n!}\tfrac{\langle\boldsymbol{\theta},\boldsymbol{\theta'}\rangle^{<\alpha-1>}\frac{1}{2^{n+1}}\mathcal{B}_{n+1}\left(\langle\boldsymbol{\theta'},\boldsymbol{x}\rangle,\langle\boldsymbol{x},\boldsymbol{\theta'}\rangle\right)}{I_{\boldsymbol{x}}(\boldsymbol{\theta'})^{\frac{n+\beta K+\alpha}{\alpha}}}d\boldsymbol{\theta'}\label{eq:A}\\
+B\left(\boldsymbol{\theta},\boldsymbol{x}\right) & =\tfrac{1}{\alpha}\int_{\boldsymbol{\theta}'\in\mathcal{S}^{K}}\sum_{n=0}^{+\infty}\tfrac{(-i)^{n}f_{\Gamma}\left(\frac{n+\beta K-1}{\alpha}\right)}{n!}\tfrac{\left\langle \boldsymbol{\theta},\boldsymbol{\theta'}\right\rangle {}^{\left\langle \alpha-1\right\rangle }\frac{1}{2^{n}}\mathcal{B}_{n}\left(\langle\boldsymbol{\theta'},\boldsymbol{x}\rangle,\langle\boldsymbol{x},\boldsymbol{\theta'}\rangle\right)}{I_{\boldsymbol{x}}\left(\boldsymbol{\theta'}\right){}^{\frac{n+\beta K-1+\alpha}{\alpha}}}d\boldsymbol{\theta'}.\label{eq:B}
+\end{align}
+
+\end_inset
+
+
+\size default
+where 
+\begin_inset Formula $\mathcal{B}_{n}\left(u,v\right)=\left(u+v\right){}^{n}=\sum_{k=0}^{n}\dbinom{n}{k}u^{n}v^{n-k}$
+\end_inset
+
+.
+ Finally, we remark from
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:N"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ that 
+\begin_inset Formula $N\left(z\boldsymbol{x},\boldsymbol{\theta}\right)=zN\left(\boldsymbol{x},\boldsymbol{\theta}\right),\forall z\in\mathcal{S}_{\mathbb{K}}^{1}$
+\end_inset
+
+, which shows that in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:A"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, all odd values of 
+\begin_inset Formula $n$
+\end_inset
+
+, and all values of 
+\begin_inset Formula $k$
+\end_inset
+
+ different from 
+\begin_inset Formula $\frac{n}{2}+1$
+\end_inset
+
+, can be discarded (the corresponding terms vanish when integrated).
+ In the same way, in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:B"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, all even values of 
+\begin_inset Formula $n$
+\end_inset
+
+, and all values of 
+\begin_inset Formula $k$
+\end_inset
+
+ different from 
+\begin_inset Formula $\frac{n+1}{2}$
+\end_inset
+
+, can be discarded, which finally leads to
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:numerator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:eta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Equation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:eta"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ defines a power series with an infinite radius of convergence when
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\alpha>1$
+\end_inset
+
+, which is smooth and independent the mixing model.
+\end_layout
+
+\begin_layout Standard
+The estimate of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}\to D\left(\boldsymbol{x}\right)$
+\end_inset
+
+ is obtained by noting that:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\boldsymbol{x}=\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\boldsymbol{\theta}\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)\Gamma_{x}\left(d\boldsymbol{\theta}\right)=\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\boldsymbol{\theta}\frac{N\left(\boldsymbol{x},\boldsymbol{\theta}\right)}{D\left(\boldsymbol{x}\right)}\Gamma_{\boldsymbol{x}}\left(d\boldsymbol{\theta}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{0.5cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Proof of Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:source_reconstruction"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We first determine the joint chf.
+ of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+:
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\forall\boldsymbol{v},\boldsymbol{u}\in\mathbb{K}^{K}$
+\end_inset
+
+, 
+\begin_inset Formula 
+\begin{align*}
+\varphi_{\left(\boldsymbol{y}_{j},\boldsymbol{x}\right)}\left(\boldsymbol{v},\boldsymbol{u}\right) & \triangleq\mathbb{E}\left[e^{i\Re\left(\left\langle \boldsymbol{v},\boldsymbol{y}_{j}\right\rangle +\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}\right]\\
+ & =\mathbb{E}\left[e^{i\Re\left(\left\langle \boldsymbol{v}+\boldsymbol{u},\boldsymbol{y}_{j}\right\rangle +\sum_{j'\neq j}\left\langle \boldsymbol{u},\boldsymbol{y}_{j'}\right\rangle \right)}\right]\\
+ & =\varphi_{\boldsymbol{y}_{j}}\left(\boldsymbol{v}+\boldsymbol{u}\right)\prod_{j'\neq j}\varphi_{\boldsymbol{y}_{j'}}\left(\boldsymbol{u}\right)\\
+ & =e^{-\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left|\left\langle \boldsymbol{v}+\boldsymbol{u},\boldsymbol{\theta}\right\rangle \right|{}^{\alpha}\Gamma_{j}\left(d\boldsymbol{\theta}\right)-\sum_{j'\neq j}\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left|\left\langle \boldsymbol{u},\boldsymbol{\theta}\right\rangle \right|{}^{\alpha}\Gamma_{j'}\left(d\boldsymbol{\theta}\right)},
+\end{align*}
+
+\end_inset
+
+which permits us to deduce the chf.
+ of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{y}_{j}$
+\end_inset
+
+ given
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{x},$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\forall\boldsymbol{v}\in\mathbb{K}^{K}:$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{array}{c}
+\varphi_{\boldsymbol{y}_{j}|\boldsymbol{x}}\left(\boldsymbol{v}\right)=\frac{\int_{\boldsymbol{u}\in\mathbb{K}^{K}}e^{-\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left|\left\langle \boldsymbol{v}+\boldsymbol{u},\boldsymbol{\theta}\right\rangle \right|{}^{\alpha}\Gamma_{j}\left(d\boldsymbol{\theta}\right)-\sum_{j'\neq j}\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\left|\left\langle \boldsymbol{u},\boldsymbol{\theta}\right\rangle \right|{}^{\alpha}\Gamma_{j'}\left(d\boldsymbol{\theta}\right)}e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}{\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}.\\
+\\
+\end{array}
+\]
+
+\end_inset
+
+The proof of the existence of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\nabla_{\boldsymbol{v}^{\star}}\varphi_{\boldsymbol{y}_{j}\mid\boldsymbol{x}}$
+\end_inset
+
+ is exactly the same as in Proposition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop:spatial_spectrum_form1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Thus, we get:
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}\left[\boldsymbol{y}_{j}\mid\boldsymbol{x}\right] & =-i\nabla_{\boldsymbol{v}^{\star}}\varphi_{\boldsymbol{y}_{j}|\boldsymbol{x}}\left(\boldsymbol{v}=\boldsymbol{0}\right)\\
+ & =\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\boldsymbol{\theta}\left[\frac{\alpha i\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\left\langle \boldsymbol{u},\boldsymbol{\theta}\right\rangle {}^{\left\langle \alpha-1\right\rangle }\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)\,e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}{\int_{\boldsymbol{u}\in\mathbb{K}^{K}}\varphi_{\boldsymbol{x}}\left(\boldsymbol{u}\right)\,e^{-i\Re\left(\left\langle \boldsymbol{u},\boldsymbol{x}\right\rangle \right)}d\boldsymbol{u}}\right]\Gamma_{j}\left(d\boldsymbol{\theta}\right)\\
+ & =\int_{\boldsymbol{\theta}\in\mathcal{S}^{K}}\boldsymbol{\theta}\,\gx\left(\boldsymbol{x},\boldsymbol{\theta}\right)\Gamma_{j}\left(d\boldsymbol{\theta}\right),
+\end{align*}
+
+\end_inset
+
+
+\size default
+ which completes the proof.
+\end_layout
+
+\begin_layout Section*
+—————–
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The following bibliography styles are allowed: 
+\family sans
+elsarticle-harv
+\family default
+, 
+\family sans
+elsarticle-num-names
+\family default
+, or 
+\family sans
+elsarticle-num
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "alpha_theory"
+options "bibtotoc,elsarticle-harv"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
